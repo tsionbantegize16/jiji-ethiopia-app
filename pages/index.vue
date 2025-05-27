@@ -1,23 +1,30 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <section class="relative py-20 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA]">
-      <div class="container mx-auto px-4">
+    <section class="relative py-20 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] overflow-hidden">
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div class="absolute inset-0 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center mix-blend-overlay"></div>
+      <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
             Buy and Sell Everything in Ethiopia
           </h1>
-          <p class="text-xl text-white/90 mb-8">
+          <p class="text-xl text-white/90 mb-8 drop-shadow">
             The largest marketplace in Ethiopia. Find everything you need, from cars to phones.
           </p>
           <!-- Smart Search -->
-          <div class="bg-white rounded-lg shadow-xl p-4">
+          <div class="bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6">
             <div class="flex flex-col md:flex-row gap-4">
-              <input 
-                type="text" 
-                placeholder="What are you looking for?" 
-                class="flex-1 px-4 py-3 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none"
-              />
+              <div class="flex-1 relative">
+                <input 
+                  type="text" 
+                  placeholder="What are you looking for?" 
+                  class="w-full px-4 py-3 pl-12 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none"
+                />
+                <svg class="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
               <select class="px-4 py-3 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none">
                 <option value="">All Categories</option>
                 <option v-for="category in categories" :key="category.id" :value="category.id">
@@ -30,7 +37,7 @@
                   {{ location.name }}
                 </option>
               </select>
-              <button class="px-6 py-3 bg-[#2EC4B6] text-white rounded-lg hover:bg-[#4F7F8F] transition-colors duration-200">
+              <button class="px-8 py-3 bg-[#2EC4B6] text-white rounded-lg hover:bg-[#4F7F8F] transition-all duration-200 transform hover:scale-105 shadow-lg">
                 Search
               </button>
             </div>
@@ -45,23 +52,24 @@
         <h2 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-8 text-center">
           Popular Categories
         </h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           <NuxtLink 
             v-for="category in popularCategories" 
             :key="category.id"
             :to="category.link"
             class="group"
           >
-            <div class="bg-[#C9F0EF]/10 dark:bg-[#2EC4B6]/10 rounded-xl p-6 text-center transition-all duration-200 hover:bg-[#C9F0EF]/20 dark:hover:bg-[#2EC4B6]/20">
-              <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2EC4B6]/10 dark:bg-[#2EC4B6]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                <component :is="category.icon" class="w-8 h-8 text-[#4F7F8F] dark:text-[#C9F0EF]" />
+            <div class="relative overflow-hidden rounded-xl aspect-square">
+              <img 
+                :src="category.image" 
+                :alt="category.name"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                <h3 class="text-lg font-medium mb-1">{{ category.name }}</h3>
+                <p class="text-sm text-white/80">{{ category.count }}+ listings</p>
               </div>
-              <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-1">
-                {{ category.name }}
-              </h3>
-              <p class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-                {{ category.count }}+ listings
-              </p>
             </div>
           </NuxtLink>
         </div>
@@ -77,16 +85,19 @@
           </h2>
           <NuxtLink 
             to="/listings" 
-            class="text-[#2EC4B6] hover:text-[#4F7F8F] dark:text-[#C9F0EF] dark:hover:text-[#2EC4B6] transition-colors duration-200"
+            class="text-[#2EC4B6] hover:text-[#4F7F8F] dark:text-[#C9F0EF] dark:hover:text-[#2EC4B6] transition-colors duration-200 flex items-center gap-2"
           >
             View All
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
           </NuxtLink>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div 
             v-for="listing in latestListings" 
             :key="listing.id"
-            class="bg-white dark:bg-[#4F7F8F] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200"
+            class="bg-white dark:bg-[#4F7F8F] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1"
           >
             <NuxtLink :to="`/listings/${listing.id}`">
               <div class="relative">
@@ -101,11 +112,19 @@
                 >
                   New
                 </div>
+                <div class="absolute bottom-4 left-4 bg-white/90 dark:bg-[#4F7F8F]/90 text-[#4F7F8F] dark:text-[#C9F0EF] px-3 py-1 rounded-full text-sm font-medium">
+                  {{ listing.condition }}
+                </div>
               </div>
               <div class="p-4">
-                <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-                  {{ listing.title }}
-                </h3>
+                <div class="flex items-center gap-2 mb-2">
+                  <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF]">
+                    {{ listing.title }}
+                  </h3>
+                  <svg v-if="listing.seller.verified" class="w-5 h-5 text-[#2EC4B6]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                </div>
                 <p class="text-xl font-bold text-[#2EC4B6] mb-2">
                   {{ listing.price }}
                 </p>
@@ -116,11 +135,24 @@
                   </svg>
                   {{ listing.location }}
                 </div>
-                <div class="flex items-center text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70 mt-2">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {{ listing.time }}
+                <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100 dark:border-[#C9F0EF]/20">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-[#2EC4B6]/10 flex items-center justify-center">
+                      <span class="text-sm font-medium text-[#2EC4B6]">{{ listing.seller.name.charAt(0) }}</span>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF]">{{ listing.seller.name }}</p>
+                      <div class="flex items-center gap-1">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">{{ listing.seller.rating }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
+                    {{ listing.time }}
+                  </div>
                 </div>
               </div>
             </NuxtLink>
@@ -208,42 +240,48 @@ const popularCategories = [
     name: 'Vehicles',
     count: '1,200',
     icon: 'CarIcon',
-    link: '/category/vehicles'
+    link: '/category/vehicles',
+    image: '/images/categories/vehicles.jpg'
   },
   {
     id: 2,
     name: 'Phones',
     count: '3,500',
     icon: 'PhoneIcon',
-    link: '/category/phones'
+    link: '/category/phones',
+    image: '/images/categories/phones.jpg'
   },
   {
     id: 3,
     name: 'Electronics',
     count: '2,800',
     icon: 'ComputerIcon',
-    link: '/category/electronics'
+    link: '/category/electronics',
+    image: '/images/categories/electronics.jpg'
   },
   {
     id: 4,
     name: 'Fashion',
     count: '4,200',
     icon: 'ClothesIcon',
-    link: '/category/fashion'
+    link: '/category/fashion',
+    image: '/images/categories/fashion.jpg'
   },
   {
     id: 5,
     name: 'Home & Garden',
     count: '1,800',
     icon: 'HomeIcon',
-    link: '/category/home-garden'
+    link: '/category/home-garden',
+    image: '/images/categories/home.jpg'
   },
   {
     id: 6,
     name: 'Sports',
     count: '900',
     icon: 'SportsIcon',
-    link: '/category/sports'
+    link: '/category/sports',
+    image: '/images/categories/sports.jpg'
   }
 ]
 
@@ -255,8 +293,14 @@ const latestListings = [
     price: 'ETB 45,000',
     location: 'Addis Ababa',
     time: '2 hours ago',
-    image: '/images/iphone.jpg',
-    isNew: true
+    image: '/images/listings/iphone.jpg',
+    isNew: true,
+    condition: 'Like New',
+    seller: {
+      name: 'Tech Store',
+      rating: 4.8,
+      verified: true
+    }
   },
   {
     id: 2,
@@ -264,8 +308,14 @@ const latestListings = [
     price: 'ETB 2,500,000',
     location: 'Dire Dawa',
     time: '5 hours ago',
-    image: '/images/car.jpg',
-    isNew: false
+    image: '/images/listings/landcruiser.jpg',
+    isNew: false,
+    condition: 'Excellent',
+    seller: {
+      name: 'Auto Dealer',
+      rating: 4.9,
+      verified: true
+    }
   },
   {
     id: 3,
@@ -273,8 +323,14 @@ const latestListings = [
     price: 'ETB 35,000',
     location: 'Hawassa',
     time: '1 day ago',
-    image: '/images/tv.jpg',
-    isNew: true
+    image: '/images/listings/tv.jpg',
+    isNew: true,
+    condition: 'New',
+    seller: {
+      name: 'Electronics Hub',
+      rating: 4.7,
+      verified: true
+    }
   },
   {
     id: 4,
@@ -282,8 +338,14 @@ const latestListings = [
     price: 'ETB 85,000',
     location: 'Addis Ababa',
     time: '2 days ago',
-    image: '/images/laptop.jpg',
-    isNew: false
+    image: '/images/listings/macbook.jpg',
+    isNew: false,
+    condition: 'Like New',
+    seller: {
+      name: 'Apple Store',
+      rating: 4.9,
+      verified: true
+    }
   }
 ]
 
@@ -373,5 +435,20 @@ const locations = [
 .bg-gradient-to-r {
   background-size: 200% 200%;
   animation: gradient 15s ease infinite;
+}
+
+/* Add hover effects */
+.group:hover .group-hover\:scale-110 {
+  transform: scale(1.1);
+}
+
+/* Add shadow effects */
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Add backdrop blur */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
 }
 </style> 
