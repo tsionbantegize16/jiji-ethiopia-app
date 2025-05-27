@@ -4,8 +4,8 @@
       <div class="flex items-center justify-between h-16">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center space-x-2">
-          <img src="/logo.png" alt="Jiji Ethiopia" class="h-8 w-auto" />
-          <span class="text-xl font-bold text-gray-900 dark:text-white">Jiji Ethiopia</span>
+          <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">Jiji</span>
+          <span class="text-xl font-bold text-gray-900 dark:text-white">Ethiopia</span>
         </NuxtLink>
 
         <!-- Search -->
@@ -15,6 +15,43 @@
 
         <!-- Navigation -->
         <nav class="flex items-center space-x-4">
+          <button
+            @click="toggleTheme"
+            class="p-2 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+            :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+          >
+            <!-- Sun icon for dark mode -->
+            <svg
+              v-if="isDark"
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            <!-- Moon icon for light mode -->
+            <svg
+              v-else
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+          </button>
+
           <NuxtLink
             to="/create-listing"
             class="btn btn-primary"
@@ -55,5 +92,5 @@
 </template>
 
 <script setup lang="ts">
-// No additional setup needed
+const { isDark, toggleTheme } = useTheme()
 </script> 

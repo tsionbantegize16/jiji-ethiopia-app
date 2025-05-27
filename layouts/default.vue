@@ -1,42 +1,14 @@
 <template>
-  <div class="flex flex-col min-h-screen">
-    <header class="bg-white dark:bg-gray-800 shadow-sm">
-      <nav class="container mx-auto px-4 py-4">
-        <div class="flex items-center justify-between">
-          <NuxtLink to="/" class="text-2xl font-bold text-primary-600">
-            Jiji Ethiopia
-          </NuxtLink>
-          
-          <div class="flex items-center space-x-4">
-            <button class="p-2 text-gray-600 dark:text-gray-300 hover:text-primary-600">
-              <span class="sr-only">Toggle dark mode</span>
-              <!-- Dark mode icon -->
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            </button>
-            
-            <button class="p-2 text-gray-600 dark:text-gray-300 hover:text-primary-600">
-              <span class="sr-only">Change language</span>
-              <!-- Language icon -->
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <main class="flex-grow">
+  <div :class="{ 'dark': isDark }" class="flex flex-col min-h-screen">
+    <Header />
+    <main class="flex-grow bg-gray-50 dark:bg-gray-900">
       <slot />
     </main>
-
     <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
       <div class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 class="text-lg font-semibold mb-4">About Jiji</h3>
+            <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">About Jiji</h3>
             <ul class="space-y-2">
               <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600">About Us</a></li>
               <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600">Careers</a></li>
@@ -45,7 +17,7 @@
           </div>
           
           <div>
-            <h3 class="text-lg font-semibold mb-4">Support</h3>
+            <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Support</h3>
             <ul class="space-y-2">
               <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600">Help Center</a></li>
               <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600">Safety Tips</a></li>
@@ -54,7 +26,7 @@
           </div>
           
           <div>
-            <h3 class="text-lg font-semibold mb-4">Legal</h3>
+            <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Legal</h3>
             <ul class="space-y-2">
               <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600">Terms of Use</a></li>
               <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600">Privacy Policy</a></li>
@@ -63,7 +35,7 @@
           </div>
           
           <div>
-            <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+            <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Follow Us</h3>
             <div class="flex space-x-4">
               <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600">
                 <span class="sr-only">Facebook</span>
@@ -96,5 +68,24 @@
 </template>
 
 <script setup lang="ts">
-// Layout-level setup
-</script> 
+import { onMounted } from 'vue'
+
+const { isDark } = useTheme()
+
+// Initialize theme on client-side
+onMounted(() => {
+  // Add a class to prevent flash of wrong theme
+  document.documentElement.classList.add('theme-initialized')
+})
+</script>
+
+<style>
+/* Prevent flash of wrong theme */
+:root {
+  color-scheme: light dark;
+}
+
+.theme-initialized {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+</style> 

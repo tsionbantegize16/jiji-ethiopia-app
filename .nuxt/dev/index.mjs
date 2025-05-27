@@ -1013,7 +1013,7 @@ const _iTdiK4jySAex_yGXD6JJpQNtdoowGUrCxwYG9IbKnoQ = (function(nitro) {
 
 const rootDir = "C:/Users/tsion/Documents/GitHub/jiji-ethiopia-app";
 
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Jiji Ethiopia - The best marketplace to buy and sell anything in Ethiopia. Find cars, phones, electronics, and more."}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[],"noscript":[],"title":"Jiji Ethiopia - Buy and Sell Everything"};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"Jiji Ethiopia - The best marketplace to buy and sell anything in Ethiopia. Find cars, phones, electronics, and more."}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[],"noscript":[],"title":"Jiji Ethiopia - Buy and Sell Everything"};
 
 const appRootTag = "div";
 
