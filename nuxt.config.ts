@@ -1,7 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+  ],
   tailwindcss: {
     config: {
       darkMode: 'class',
@@ -28,23 +31,47 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Jiji Ethiopia - Buy and Sell Everything',
+      title: 'Jiji Ethiopia',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { 
-          name: 'description', 
-          content: 'Jiji Ethiopia - The best marketplace to buy and sell anything in Ethiopia. Find cars, phones, electronics, and more.' 
-        }
+        { hid: 'description', name: 'description', content: 'Buy and sell anything in Ethiopia' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
+    },
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
+  css: [
+    '~/assets/css/main.css'
+  ],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
+  build: {
+    transpile: ['@heroicons/vue']
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000'
     }
   },
-  css: ['~/assets/styles/main.css'],
-  typescript: {
-    strict: true
+  experimental: {
+    payloadExtraction: false
   },
-  ssr: true
+  nitro: {
+    routeRules: {
+      '/**': { cors: true }
+    }
+  },
+  pages: true,
+  router: {
+    options: {
+      strict: false
+    }
+  }
 }) 

@@ -47,7 +47,7 @@
                 <button 
                   v-for="(image, index) in listing.images" 
                   :key="index"
-                  @click="currentImage = image"
+                  @click="handleImageClick(image)"
                   class="w-16 h-16 rounded-lg overflow-hidden border-2"
                   :class="currentImage === image ? 'border-[#2EC4B6]' : 'border-transparent'"
                 >
@@ -271,11 +271,15 @@
 
 <script setup lang="ts">
 const route = useRoute()
+const router = useRouter()
 const currentImage = ref('')
+
+// Get the listing ID from the route
+const listingId = computed(() => route.params.id)
 
 // Mock data - Replace with actual API call
 const listing = ref({
-  id: route.params.id,
+  id: listingId.value,
   title: 'iPhone 13 Pro Max - 256GB - Pacific Blue',
   price: 'ETB 45,000',
   isNegotiable: true,
@@ -317,7 +321,9 @@ Selling because I got a different phone.`,
 })
 
 // Set initial image
-currentImage.value = listing.value.mainImage
+onMounted(() => {
+  currentImage.value = listing.value.mainImage
+})
 
 // Mock related listings - Replace with actual API call
 const relatedListings = ref([
@@ -354,6 +360,11 @@ const relatedListings = ref([
     isNew: false
   }
 ])
+
+// Handle image click
+const handleImageClick = (image: string) => {
+  currentImage.value = image
+}
 </script>
 
 <style scoped>

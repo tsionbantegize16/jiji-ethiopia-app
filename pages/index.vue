@@ -103,7 +103,7 @@
             :key="listing.id"
             class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
           >
-            <NuxtLink :to="`/product/${listing.id}`">
+            <NuxtLink :to="`/listings/${listing.id}`">
               <div class="relative">
                 <img
                   :src="listing.image"

@@ -1,165 +1,151 @@
 <template>
   <div class="container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <h1 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-8">My Profile</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Profile Sidebar -->
-      <div class="lg:col-span-1">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+      <div class="md:col-span-1">
+        <div class="bg-white dark:bg-[#4F7F8F] rounded-lg shadow-lg p-6">
+          <!-- Profile Image -->
           <div class="text-center mb-6">
-            <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mb-4">
-              <span class="text-3xl font-semibold text-gray-600 dark:text-gray-300">
-                {{ user.name.charAt(0) }}
-              </span>
+            <div class="relative inline-block">
+              <img
+                :src="userProfile.avatar"
+                :alt="userProfile.name"
+                class="w-32 h-32 rounded-full object-cover border-4 border-[#C9F0EF] dark:border-[#2EC4B6]"
+              />
+              <button
+                @click="updateProfileImage"
+                class="absolute bottom-0 right-0 p-2 bg-[#2EC4B6] text-white rounded-full hover:bg-[#4F7F8F] transition-colors duration-200"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                </svg>
+              </button>
             </div>
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-              {{ user.name }}
+            <h2 class="mt-4 text-xl font-semibold text-[#4F7F8F] dark:text-[#C9F0EF]">
+              {{ userProfile.name }}
             </h2>
-            <p class="text-gray-500 dark:text-gray-400">
-              Member since {{ user.joinDate }}
+            <p class="text-[#4F7F8F] dark:text-[#C9F0EF]">
+              {{ userProfile.email }}
             </p>
           </div>
 
-          <div class="space-y-4">
-            <NuxtLink
-              to="/profile"
-              class="flex items-center text-gray-700 dark:text-gray-300 hover:text-primary-600"
-            >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              Profile
-            </NuxtLink>
-
-            <NuxtLink
-              to="/profile/listings"
-              class="flex items-center text-gray-700 dark:text-gray-300 hover:text-primary-600"
-            >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-              My Listings
-            </NuxtLink>
-
-            <NuxtLink
-              to="/profile/favorites"
-              class="flex items-center text-gray-700 dark:text-gray-300 hover:text-primary-600"
-            >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-              Favorites
-            </NuxtLink>
-
-            <NuxtLink
-              to="/profile/messages"
-              class="flex items-center text-gray-700 dark:text-gray-300 hover:text-primary-600"
-            >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-              Messages
-            </NuxtLink>
-
+          <!-- Navigation -->
+          <nav class="space-y-2">
             <button
-              @click="logout"
-              class="flex items-center text-red-600 hover:text-red-700 w-full"
+              v-for="section in sections"
+              :key="section.id"
+              @click="activeSection = section.id"
+              class="w-full flex items-center px-4 py-2 text-[#4F7F8F] dark:text-[#C9F0EF] rounded-lg hover:bg-[#C9F0EF] dark:hover:bg-[#2EC4B6] transition-colors duration-200"
+              :class="{ 'bg-[#C9F0EF] dark:bg-[#2EC4B6]': activeSection === section.id }"
             >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              Logout
+              <component :is="section.icon" class="w-5 h-5 mr-3" />
+              {{ section.name }}
             </button>
-          </div>
+          </nav>
         </div>
       </div>
 
       <!-- Main Content -->
-      <div class="lg:col-span-3">
-        <!-- Profile Information -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Profile Information
-          </h3>
-
-          <form @submit.prevent="updateProfile" class="space-y-4">
+      <div class="md:col-span-2">
+        <!-- Personal Information -->
+        <div v-if="activeSection === 'personal'" class="bg-white dark:bg-[#4F7F8F] rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-semibold text-[#4F7F8F] dark:text-[#C9F0EF] mb-6">Personal Information</h3>
+          <form @submit.prevent="updateProfile" class="space-y-6">
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Full Name
-              </label>
+              <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Full Name</label>
               <input
-                v-model="profile.name"
+                v-model="userProfile.name"
                 type="text"
-                class="input"
-                required
+                class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
               />
             </div>
-
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Email
-              </label>
+              <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Email</label>
               <input
-                v-model="profile.email"
+                v-model="userProfile.email"
                 type="email"
-                class="input"
-                required
+                class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
               />
             </div>
-
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Phone Number
-              </label>
+              <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Phone Number</label>
               <input
-                v-model="profile.phone"
+                v-model="userProfile.phone"
                 type="tel"
-                class="input"
-                required
+                class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
               />
             </div>
-
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Location
-              </label>
+              <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Location</label>
               <input
-                v-model="profile.location"
+                v-model="userProfile.location"
                 type="text"
-                class="input"
-                required
+                class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
               />
             </div>
-
-            <button type="submit" class="btn btn-primary">
-              Update Profile
-            </button>
+            <div class="flex justify-end">
+              <button type="submit" class="btn-primary">
+                Save Changes
+              </button>
+            </div>
           </form>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Recent Activity
-          </h3>
+        <!-- Security -->
+        <div v-if="activeSection === 'security'" class="bg-white dark:bg-[#4F7F8F] rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-semibold text-[#4F7F8F] dark:text-[#C9F0EF] mb-6">Security Settings</h3>
+          <form @submit.prevent="updatePassword" class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Current Password</label>
+              <input
+                v-model="password.current"
+                type="password"
+                class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">New Password</label>
+              <input
+                v-model="password.new"
+                type="password"
+                class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Confirm New Password</label>
+              <input
+                v-model="password.confirm"
+                type="password"
+                class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
+              />
+            </div>
+            <div class="flex justify-end">
+              <button type="submit" class="btn-primary">
+                Update Password
+              </button>
+            </div>
+          </form>
+        </div>
 
+        <!-- Notifications -->
+        <div v-if="activeSection === 'notifications'" class="bg-white dark:bg-[#4F7F8F] rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-semibold text-[#4F7F8F] dark:text-[#C9F0EF] mb-6">Notification Settings</h3>
           <div class="space-y-4">
-            <div
-              v-for="activity in recentActivity"
-              :key="activity.id"
-              class="flex items-start space-x-4"
-            >
-              <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
+            <div v-for="setting in notificationSettings" :key="setting.id" class="flex items-center justify-between">
               <div>
-                <p class="text-gray-900 dark:text-white">
-                  {{ activity.description }}
-                </p>
-                <p class="text-sm text-gray-500 dark:text-gray-400">
-                  {{ activity.time }}
-                </p>
+                <h4 class="font-medium text-[#4F7F8F] dark:text-[#C9F0EF]">{{ setting.name }}</h4>
+                <p class="text-sm text-[#4F7F8F] dark:text-[#C9F0EF]">{{ setting.description }}</p>
               </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  v-model="setting.enabled"
+                  class="sr-only peer"
+                />
+                <div class="w-11 h-6 bg-[#C9F0EF] dark:bg-[#2EC4B6] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#2EC4B6] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2EC4B6]"></div>
+              </label>
             </div>
           </div>
         </div>
@@ -169,44 +155,102 @@
 </template>
 
 <script setup lang="ts">
-// Mock user data - replace with actual data from your backend
-const user = ref({
-  name: 'John Doe',
-  joinDate: 'January 2023',
-})
-
-const profile = ref({
-  name: 'John Doe',
-  email: 'john@example.com',
-  phone: '+251 912 345 678',
-  location: 'Addis Ababa',
-})
-
-const recentActivity = ref([
-  {
-    id: 1,
-    description: 'Listed a new item: iPhone 13 Pro Max',
-    time: '2 hours ago',
-  },
-  {
-    id: 2,
-    description: 'Received a message about Samsung Galaxy S21',
-    time: '5 hours ago',
-  },
-  {
-    id: 3,
-    description: 'Updated profile information',
-    time: '1 day ago',
-  },
-])
-
-const updateProfile = () => {
-  // Implement profile update functionality
-  console.log('Updating profile:', profile.value)
+interface UserProfile {
+  name: string
+  email: string
+  phone: string
+  location: string
+  avatar: string
 }
 
-const logout = () => {
-  // Implement logout functionality
-  console.log('Logging out...')
+interface Password {
+  current: string
+  new: string
+  confirm: string
+}
+
+interface NotificationSetting {
+  id: string
+  name: string
+  description: string
+  enabled: boolean
+}
+
+const userProfile = ref<UserProfile>({
+  name: 'John Doe',
+  email: 'john.doe@example.com',
+  phone: '+251 912 345 678',
+  location: 'Addis Ababa',
+  avatar: 'https://i.pravatar.cc/150?img=1'
+})
+
+const password = ref<Password>({
+  current: '',
+  new: '',
+  confirm: ''
+})
+
+const notificationSettings = ref<NotificationSetting[]>([
+  {
+    id: 'messages',
+    name: 'Messages',
+    description: 'Get notified when you receive new messages',
+    enabled: true
+  },
+  {
+    id: 'listings',
+    name: 'Listings',
+    description: 'Get notified about your listing status',
+    enabled: true
+  },
+  {
+    id: 'marketing',
+    name: 'Marketing',
+    description: 'Receive updates about new features and promotions',
+    enabled: false
+  }
+])
+
+const sections = [
+  {
+    id: 'personal',
+    name: 'Personal Information',
+    icon: 'UserIcon'
+  },
+  {
+    id: 'security',
+    name: 'Security',
+    icon: 'LockIcon'
+  },
+  {
+    id: 'notifications',
+    name: 'Notifications',
+    icon: 'BellIcon'
+  }
+]
+
+const activeSection = ref('personal')
+
+const updateProfile = async () => {
+  try {
+    // TODO: Implement profile update logic
+    console.log('Updating profile:', userProfile.value)
+  } catch (error) {
+    console.error('Error updating profile:', error)
+  }
+}
+
+const updatePassword = async () => {
+  try {
+    // TODO: Implement password update logic
+    console.log('Updating password:', password.value)
+  } catch (error) {
+    console.error('Error updating password:', error)
+  }
+}
+
+const updateProfileImage = () => {
+  // TODO: Implement profile image update logic
+  console.log('Updating profile image')
 }
 </script> 

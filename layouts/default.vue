@@ -93,40 +93,42 @@
               :key="listing.id"
               class="bg-white dark:bg-[#4F7F8F] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200"
             >
-              <div class="relative">
-                <img 
-                  :src="listing.image" 
-                  :alt="listing.title"
-                  class="w-full h-48 object-cover"
-                />
-                <div 
-                  v-if="listing.isNew"
-                  class="absolute top-4 right-4 bg-[#2EC4B6] text-white px-3 py-1 rounded-full text-sm font-medium"
-                >
-                  New
+              <NuxtLink :to="`/listings/${listing.id}`">
+                <div class="relative">
+                  <img 
+                    :src="listing.image" 
+                    :alt="listing.title"
+                    class="w-full h-48 object-cover"
+                  />
+                  <div 
+                    v-if="listing.isNew"
+                    class="absolute top-4 right-4 bg-[#2EC4B6] text-white px-3 py-1 rounded-full text-sm font-medium"
+                  >
+                    New
+                  </div>
                 </div>
-              </div>
-              <div class="p-4">
-                <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-                  {{ listing.title }}
-                </h3>
-                <p class="text-xl font-bold text-[#2EC4B6] mb-2">
-                  {{ listing.price }}
-                </p>
-                <div class="flex items-center text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  {{ listing.location }}
+                <div class="p-4">
+                  <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
+                    {{ listing.title }}
+                  </h3>
+                  <p class="text-xl font-bold text-[#2EC4B6] mb-2">
+                    {{ listing.price }}
+                  </p>
+                  <div class="flex items-center text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {{ listing.location }}
+                  </div>
+                  <div class="flex items-center text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70 mt-2">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {{ listing.time }}
+                  </div>
                 </div>
-                <div class="flex items-center text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70 mt-2">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {{ listing.time }}
-                </div>
-              </div>
+              </NuxtLink>
             </div>
           </div>
         </div>

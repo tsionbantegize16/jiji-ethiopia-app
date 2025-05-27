@@ -632,6 +632,15 @@ const _inlineRuntimeConfig = {
       "/__nuxt_error": {
         "cache": false
       },
+      "/**": {
+        "cors": true,
+        "headers": {
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "*",
+          "access-control-allow-headers": "*",
+          "access-control-max-age": "0"
+        }
+      },
       "/_nuxt/builds/meta/**": {
         "headers": {
           "cache-control": "public, max-age=31536000, immutable"
@@ -644,7 +653,9 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {}
+  "public": {
+    "apiBase": "http://localhost:3000"
+  }
 };
 const envOptions = {
   prefix: "NITRO_",
@@ -1013,7 +1024,7 @@ const _iTdiK4jySAex_yGXD6JJpQNtdoowGUrCxwYG9IbKnoQ = (function(nitro) {
 
 const rootDir = "C:/Users/tsion/Documents/GitHub/jiji-ethiopia-app";
 
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"Jiji Ethiopia - The best marketplace to buy and sell anything in Ethiopia. Find cars, phones, electronics, and more."}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[],"noscript":[],"title":"Jiji Ethiopia - Buy and Sell Everything"};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Buy and sell anything in Ethiopia"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[],"noscript":[],"title":"Jiji Ethiopia"};
 
 const appRootTag = "div";
 
@@ -1755,17 +1766,6 @@ const styles$1 = /*#__PURE__*/Object.freeze({
   default: styles
 });
 
-function renderPayloadResponse(ssrContext) {
-  return {
-    body: stringify(splitPayload(ssrContext).payload, ssrContext._payloadReducers) ,
-    statusCode: getResponseStatus(ssrContext.event),
-    statusMessage: getResponseStatusText(ssrContext.event),
-    headers: {
-      "content-type": "application/json;charset=utf-8" ,
-      "x-powered-by": "Nuxt"
-    }
-  };
-}
 function renderPayloadJsonScript(opts) {
   const contents = opts.data ? stringify(opts.data, opts.ssrContext._payloadReducers) : "";
   const payload = {
@@ -1788,13 +1788,6 @@ function renderPayloadJsonScript(opts) {
     }
   ];
 }
-function splitPayload(ssrContext) {
-  const { data, prerenderedAt, ...initial } = ssrContext.payload;
-  return {
-    initial: { ...initial, prerenderedAt },
-    payload: { data, prerenderedAt }
-  };
-}
 
 const renderSSRHeadOptions = {"omitLineBreaks":false};
 
@@ -1803,7 +1796,6 @@ globalThis.__publicAssetsURL = publicAssetsURL;
 const HAS_APP_TELEPORTS = !!(appTeleportAttrs.id);
 const APP_TELEPORT_OPEN_TAG = HAS_APP_TELEPORTS ? `<${appTeleportTag}${propsToString(appTeleportAttrs)}>` : "";
 const APP_TELEPORT_CLOSE_TAG = HAS_APP_TELEPORTS ? `</${appTeleportTag}>` : "";
-const PAYLOAD_URL_RE = /^[^?]*\/_payload.json(?:\?.*)?$/ ;
 const renderer = defineRenderHandler(async (event) => {
   const nitroApp = useNitroApp();
   const ssrError = event.path.startsWith("/__nuxt_error") ? getQuery$1(event) : null;
@@ -1819,12 +1811,6 @@ const renderer = defineRenderHandler(async (event) => {
   if (ssrError) {
     ssrError.statusCode &&= Number.parseInt(ssrError.statusCode);
     setSSRError(ssrContext, ssrError);
-  }
-  const isRenderingPayload = PAYLOAD_URL_RE.test(ssrContext.url);
-  if (isRenderingPayload) {
-    const url = ssrContext.url.substring(0, ssrContext.url.lastIndexOf("/")) || "/";
-    ssrContext.url = url;
-    event._path = event.node.req.url = url;
   }
   const routeOptions = getRouteRules(event);
   if (routeOptions.ssr === false) {
@@ -1846,10 +1832,6 @@ const renderer = defineRenderHandler(async (event) => {
   }
   if (ssrContext.payload?.error && !ssrError) {
     throw ssrContext.payload.error;
-  }
-  if (isRenderingPayload) {
-    const response = renderPayloadResponse(ssrContext);
-    return response;
   }
   const NO_SCRIPTS = routeOptions.noScripts;
   const { styles, scripts } = getRequestDependencies(ssrContext, renderer.rendererContext);

@@ -1,139 +1,84 @@
 <template>
-  <div class="min-h-screen bg-[#C9F0EF] dark:bg-[#4F7F8F] py-8">
-    <div class="container mx-auto px-4">
-      <!-- Category Header -->
-      <div class="bg-white dark:bg-[#4F7F8F] rounded-xl shadow-lg p-6 mb-8">
-        <div class="flex items-center justify-between">
-          <div>
-            <h1 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-              Vehicles
-            </h1>
-            <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-              {{ totalListings }} active listings
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Subcategories -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <a 
-          v-for="subcat in subcategories" 
-          :key="subcat.id"
-          :href="subcat.path"
-          class="bg-white dark:bg-[#4F7F8F] rounded-xl p-4 text-center hover:shadow-lg transition-all duration-300"
-        >
-          <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF]">
-            {{ subcat.name }}
-          </h3>
-          <p class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-            {{ subcat.count }} listings
-          </p>
-        </a>
-      </div>
-
-      <!-- Latest Listings -->
-      <div>
-        <h2 class="text-2xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-4">
-          Latest Listings
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div 
-            v-for="listing in latestListings" 
-            :key="listing.id"
-            class="bg-white dark:bg-[#4F7F8F] rounded-xl overflow-hidden shadow-lg"
-          >
-            <a :href="`/listings/${listing.id}`">
-              <div class="relative">
-                <img 
-                  :src="listing.image" 
-                  :alt="listing.title"
-                  class="w-full h-48 object-cover"
-                />
-              </div>
-              <div class="p-4">
-                <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-                  {{ listing.title }}
-                </h3>
-                <p class="text-xl font-bold text-[#2EC4B6] mb-2">
-                  {{ listing.price }}
-                </p>
-                <div class="flex items-center text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  {{ listing.location }}
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <CategoryLayout
+    title="Vehicles"
+    description="Browse through a wide selection of cars, motorcycles, and other vehicles for sale in Ethiopia."
+    :items="vehicles"
+  />
 </template>
 
 <script setup lang="ts">
-const totalListings = ref('8,500')
-
-// Subcategories data
-const subcategories = ref([
-  {
-    id: 1,
-    name: 'Cars',
-    path: '/category/cars',
-    count: '4,500'
-  },
-  {
-    id: 2,
-    name: 'Motorcycles',
-    path: '/category/motorcycles',
-    count: '2,000'
-  },
-  {
-    id: 3,
-    name: 'Trucks',
-    path: '/category/trucks',
-    count: '1,200'
-  },
-  {
-    id: 4,
-    name: 'Auto Parts',
-    path: '/category/auto-parts',
-    count: '800'
-  }
-])
-
-// Latest listings data
-const latestListings = ref([
+const vehicles = [
   {
     id: 1,
     title: 'Toyota Land Cruiser 2020',
-    price: 'ETB 2,500,000',
+    price: 2500000,
     location: 'Addis Ababa',
-    image: '/images/landcruiser.jpg'
+    image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    condition: 'like_new',
+    isFavorite: false
   },
   {
     id: 2,
     title: 'Honda Civic 2019',
-    price: 'ETB 850,000',
+    price: 850000,
     location: 'Dire Dawa',
-    image: '/images/civic.jpg'
+    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    condition: 'good',
+    isFavorite: true
   },
   {
     id: 3,
-    title: 'BMW X5 2021',
-    price: 'ETB 3,500,000',
-    location: 'Hawassa',
-    image: '/images/bmw.jpg'
+    title: 'Suzuki Jimny 2021',
+    price: 1200000,
+    location: 'Bahir Dar',
+    image: 'https://images.unsplash.com/photo-1617469767053-3c4f8a5d5b1c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false
   },
   {
     id: 4,
-    title: 'Suzuki V-Strom 650',
-    price: 'ETB 380,000',
+    title: 'Yamaha MT-07 2022',
+    price: 450000,
+    location: 'Mekelle',
+    image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false
+  },
+  {
+    id: 5,
+    title: 'Toyota Hilux 2018',
+    price: 1500000,
     location: 'Addis Ababa',
-    image: '/images/vstrom.jpg'
+    image: 'https://images.unsplash.com/photo-1617469767053-3c4f8a5d5b1c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    condition: 'good',
+    isFavorite: true
+  },
+  {
+    id: 6,
+    title: 'BMW X5 2021',
+    price: 3500000,
+    location: 'Addis Ababa',
+    image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    condition: 'like_new',
+    isFavorite: false
+  },
+  {
+    id: 7,
+    title: 'Kawasaki Ninja 400 2022',
+    price: 550000,
+    location: 'Dire Dawa',
+    image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false
+  },
+  {
+    id: 8,
+    title: 'Mercedes-Benz G-Class 2020',
+    price: 4500000,
+    location: 'Addis Ababa',
+    image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    condition: 'like_new',
+    isFavorite: true
   }
-])
+]
 </script> 

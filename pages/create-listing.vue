@@ -1,227 +1,131 @@
 <template>
   <div class="container mx-auto px-4 py-8">
-    <div class="max-w-3xl mx-auto">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-        Create New Listing
-      </h1>
+    <h1 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-8">Create New Listing</h1>
+    
+    <form @submit.prevent="handleSubmit" class="max-w-2xl mx-auto space-y-6">
+      <!-- Title -->
+      <div>
+        <label for="title" class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Title</label>
+        <input
+          type="text"
+          id="title"
+          v-model="form.title"
+          class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
+          required
+        />
+      </div>
 
-      <form @submit.prevent="createListing" class="space-y-6">
-        <!-- Basic Information -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Basic Information
-          </h2>
+      <!-- Category -->
+      <div>
+        <label for="category" class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Category</label>
+        <select
+          id="category"
+          v-model="form.category"
+          class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
+          required
+        >
+          <option value="">Select a category</option>
+          <option value="vehicles">Vehicles</option>
+          <option value="phones">Phones</option>
+          <option value="electronics">Electronics</option>
+          <option value="fashion">Fashion</option>
+          <option value="home-garden">Home & Garden</option>
+          <option value="sports">Sports</option>
+        </select>
+      </div>
 
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Title
+      <!-- Price -->
+      <div>
+        <label for="price" class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Price (ETB)</label>
+        <input
+          type="number"
+          id="price"
+          v-model="form.price"
+          class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
+          required
+        />
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label for="description" class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Description</label>
+        <textarea
+          id="description"
+          v-model="form.description"
+          rows="4"
+          class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Images -->
+      <div>
+        <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Images</label>
+        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-[#C9F0EF] dark:border-[#2EC4B6] border-dashed rounded-lg">
+          <div class="space-y-1 text-center">
+            <svg class="mx-auto h-12 w-12 text-[#4F7F8F] dark:text-[#C9F0EF]" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="flex text-sm text-[#4F7F8F] dark:text-[#C9F0EF]">
+              <label for="file-upload" class="relative cursor-pointer rounded-md font-medium text-[#2EC4B6] hover:text-[#4F7F8F] focus-within:outline-none">
+                <span>Upload files</span>
+                <input id="file-upload" name="file-upload" type="file" class="sr-only" multiple @change="handleFileUpload">
               </label>
-              <input
-                v-model="listing.title"
-                type="text"
-                class="input"
-                placeholder="What are you selling?"
-                required
-              />
+              <p class="pl-1">or drag and drop</p>
             </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Category
-              </label>
-              <select v-model="listing.category" class="select" required>
-                <option value="">Select a category</option>
-                <option v-for="category in categories" :key="category.id" :value="category.id">
-                  {{ category.name }}
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Price (ETB)
-              </label>
-              <input
-                v-model="listing.price"
-                type="number"
-                class="input"
-                placeholder="0"
-                required
-              />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Condition
-              </label>
-              <select v-model="listing.condition" class="select" required>
-                <option value="">Select condition</option>
-                <option value="new">New</option>
-                <option value="like_new">Like New</option>
-                <option value="good">Good</option>
-                <option value="fair">Fair</option>
-              </select>
-            </div>
+            <p class="text-xs text-[#4F7F8F] dark:text-[#C9F0EF]">PNG, JPG, GIF up to 10MB</p>
           </div>
         </div>
+      </div>
 
-        <!-- Description -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Description
-          </h2>
+      <!-- Location -->
+      <div>
+        <label for="location" class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Location</label>
+        <input
+          type="text"
+          id="location"
+          v-model="form.location"
+          class="w-full px-4 py-2 rounded-lg border border-[#C9F0EF] dark:border-[#2EC4B6] bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] focus:ring-2 focus:ring-[#2EC4B6] focus:border-transparent"
+          required
+        />
+      </div>
 
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Description
-            </label>
-            <textarea
-              v-model="listing.description"
-              rows="6"
-              class="input"
-              placeholder="Describe your item in detail..."
-              required
-            ></textarea>
-          </div>
-        </div>
-
-        <!-- Location -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Location
-          </h2>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              City
-            </label>
-            <select v-model="listing.location" class="select" required>
-              <option value="">Select a city</option>
-              <option v-for="location in locations" :key="location.id" :value="location.id">
-                {{ location.name }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Photos -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Photos
-          </h2>
-
-          <div class="space-y-4">
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <div
-                v-for="(image, index) in listing.images"
-                :key="index"
-                class="relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden"
-              >
-                <img
-                  :src="image"
-                  :alt="`Listing image ${index + 1}`"
-                  class="w-full h-full object-cover"
-                />
-                <button
-                  @click="removeImage(index)"
-                  class="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              <button
-                v-if="listing.images.length < 8"
-                @click="addImage"
-                class="aspect-square border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 hover:border-primary-500 hover:text-primary-500"
-              >
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-              </button>
-            </div>
-
-            <p class="text-sm text-gray-500 dark:text-gray-400">
-              Add up to 8 photos. First photo will be the cover image.
-            </p>
-          </div>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="flex justify-end">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            :disabled="isSubmitting"
-          >
-            <span v-if="isSubmitting">Creating...</span>
-            <span v-else>Create Listing</span>
-          </button>
-        </div>
-      </form>
-    </div>
+      <!-- Submit Button -->
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="btn-primary"
+        >
+          Create Listing
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script setup lang="ts">
-const isSubmitting = ref(false)
-
-// Mock data - replace with actual data from your backend
-const categories = ref([
-  { id: 1, name: 'Phones' },
-  { id: 2, name: 'Electronics' },
-  { id: 3, name: 'Fashion' },
-  { id: 4, name: 'Home & Garden' },
-  { id: 5, name: 'Vehicles' },
-  { id: 6, name: 'Jobs' },
-])
-
-const locations = ref([
-  { id: 1, name: 'Addis Ababa' },
-  { id: 2, name: 'Dire Dawa' },
-  { id: 3, name: 'Bahir Dar' },
-  { id: 4, name: 'Mekelle' },
-])
-
-const listing = ref({
+const form = ref({
   title: '',
   category: '',
   price: '',
-  condition: '',
   description: '',
-  location: '',
-  images: [],
+  images: [] as File[],
+  location: ''
 })
 
-const addImage = () => {
-  // Implement image upload functionality
-  // For now, we'll just add a placeholder image
-  listing.value.images.push('/images/placeholder.jpg')
+const handleFileUpload = (event: Event) => {
+  const input = event.target as HTMLInputElement
+  if (input.files) {
+    form.value.images = Array.from(input.files)
+  }
 }
 
-const removeImage = (index: number) => {
-  listing.value.images.splice(index, 1)
-}
-
-const createListing = async () => {
-  isSubmitting.value = true
-  
+const handleSubmit = async () => {
   try {
-    // Implement listing creation functionality
-    console.log('Creating listing:', listing.value)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    // Redirect to the new listing
-    // navigateTo(`/product/${newListingId}`)
+    // TODO: Implement form submission logic
+    console.log('Form submitted:', form.value)
   } catch (error) {
-    console.error('Error creating listing:', error)
-  } finally {
-    isSubmitting.value = false
+    console.error('Error submitting form:', error)
   }
 }
 </script> 
