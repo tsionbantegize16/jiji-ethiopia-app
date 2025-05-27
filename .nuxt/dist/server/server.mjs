@@ -1,0 +1,1 @@
+export { default } from "file:///C:/Users/tsion/Documents/GitHub/jiji-ethiopia-app/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
