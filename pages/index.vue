@@ -12,34 +12,51 @@
           <p class="text-xl text-white/90 mb-8 drop-shadow">
             The largest marketplace in Ethiopia. Find everything you need, from cars to phones.
           </p>
-          <!-- Smart Search -->
-          <div class="bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6">
-            <div class="flex flex-col md:flex-row gap-4">
-              <div class="flex-1 relative">
-                <input 
-                  type="text" 
-                  placeholder="What are you looking for?" 
-                  class="w-full px-4 py-3 pl-12 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none"
-                />
-                <svg class="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <!-- Search Bar -->
+          <div class="relative max-w-2xl mx-auto">
+            <div class="relative">
+              <input 
+                type="text" 
+                v-model="searchQuery"
+                @input="handleSearch"
+                placeholder="Search for anything..." 
+                class="w-full px-6 py-4 rounded-full bg-white/90 dark:bg-[#4F7F8F]/90 text-[#4F7F8F] dark:text-[#C9F0EF] placeholder-[#4F7F8F]/50 dark:placeholder-[#C9F0EF]/50 focus:outline-none focus:ring-2 focus:ring-[#2EC4B6] shadow-lg"
+              />
+              <button 
+                @click="handleSearch"
+                class="absolute right-4 top-1/2 -translate-y-1/2 bg-[#2EC4B6] text-white p-2 rounded-full hover:bg-[#2EC4B6]/90 transition-colors"
+              >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-              </div>
-              <select class="px-4 py-3 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none">
-                <option value="">All Categories</option>
-                <option v-for="category in categories" :key="category.id" :value="category.id">
-                  {{ category.name }}
-                </option>
-              </select>
-              <select class="px-4 py-3 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none">
-                <option value="">All Locations</option>
-                <option v-for="location in locations" :key="location.id" :value="location.id">
-                  {{ location.name }}
-                </option>
-              </select>
-              <button class="px-8 py-3 bg-[#2EC4B6] text-white rounded-lg hover:bg-[#4F7F8F] transition-all duration-200 transform hover:scale-105 shadow-lg">
-                Search
               </button>
+            </div>
+            <!-- Search Results Dropdown -->
+            <div 
+              v-if="showSearchResults && searchResults.length > 0"
+              class="absolute w-full mt-2 bg-white dark:bg-[#4F7F8F] rounded-xl shadow-xl overflow-hidden z-50"
+            >
+              <div class="max-h-96 overflow-y-auto">
+                <div 
+                  v-for="result in searchResults" 
+                  :key="result.id"
+                  @click="navigateToResult(result)"
+                  class="p-4 hover:bg-gray-50 dark:hover:bg-[#4F7F8F]/80 cursor-pointer transition-colors"
+                >
+                  <div class="flex items-center gap-4">
+                    <img 
+                      :src="result.image" 
+                      :alt="result.title"
+                      class="w-16 h-16 object-cover rounded-lg"
+                    />
+                    <div>
+                      <h3 class="font-medium text-[#4F7F8F] dark:text-[#C9F0EF]">{{ result.title }}</h3>
+                      <p class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">{{ result.category }}</p>
+                      <p class="text-[#2EC4B6] font-medium">{{ result.price }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -233,6 +250,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
+const searchQuery = ref('')
+const showSearchResults = ref(false)
+const searchResults = ref([])
+
 // Popular Categories Data
 const popularCategories = [
   {
@@ -409,6 +432,127 @@ const locations = [
   { id: 3, name: 'Bahir Dar' },
   { id: 4, name: 'Mekelle' }
 ]
+
+// Sample data for all products
+const allProducts = [
+  // Phones
+  {
+    id: 'phone-1',
+    title: 'iPhone 13 Pro',
+    category: 'Phones',
+    price: 'ETB 45,000',
+    image: '/images/listings/iphone.jpg',
+    path: '/category/phones'
+  },
+  // Vehicles
+  {
+    id: 'vehicle-1',
+    title: 'Toyota Land Cruiser',
+    category: 'Vehicles',
+    price: 'ETB 2,500,000',
+    image: '/images/listings/landcruiser.jpg',
+    path: '/category/vehicles'
+  },
+  // Electronics
+  {
+    id: 'electronics-1',
+    title: 'Samsung Smart TV',
+    category: 'Electronics',
+    price: 'ETB 35,000',
+    image: '/images/listings/tv.jpg',
+    path: '/category/electronics'
+  },
+  {
+    id: 'electronics-2',
+    title: 'MacBook Pro',
+    category: 'Electronics',
+    price: 'ETB 85,000',
+    image: '/images/listings/macbook.jpg',
+    path: '/category/electronics'
+  },
+  // Home & Garden
+  {
+    id: 'home-1',
+    title: 'Modern Sofa Set',
+    category: 'Home & Garden',
+    price: 'ETB 45,000',
+    image: '/images/listings/sofa.jpg',
+    path: '/category/home-garden'
+  },
+  {
+    id: 'home-2',
+    title: 'Garden Tools Set',
+    category: 'Home & Garden',
+    price: 'ETB 5,000',
+    image: '/images/listings/garden-tools.jpg',
+    path: '/category/home-garden'
+  },
+  // Sports
+  {
+    id: 'sports-1',
+    title: 'Professional Football',
+    category: 'Sports',
+    price: 'ETB 2,500',
+    image: '/images/listings/football.jpg',
+    path: '/category/sports'
+  },
+  {
+    id: 'sports-2',
+    title: 'Basketball Set',
+    category: 'Sports',
+    price: 'ETB 5,000',
+    image: '/images/listings/basketball.jpg',
+    path: '/category/sports'
+  },
+  // Luxury/Premium
+  {
+    id: 'luxury-1',
+    title: 'Rolex Datejust 41',
+    category: 'Premium & Luxury',
+    price: 'ETB 450,000',
+    image: '/images/listings/rolex.jpg',
+    path: '/category/grand'
+  },
+  {
+    id: 'luxury-2',
+    title: 'Mercedes-Benz S-Class',
+    category: 'Premium & Luxury',
+    price: 'ETB 4,500,000',
+    image: '/images/listings/mercedes.jpg',
+    path: '/category/grand'
+  }
+]
+
+const handleSearch = () => {
+  if (searchQuery.value.trim() === '') {
+    searchResults.value = []
+    showSearchResults.value = false
+    return
+  }
+
+  const query = searchQuery.value.toLowerCase()
+  searchResults.value = allProducts.filter(product => 
+    product.title.toLowerCase().includes(query) ||
+    product.category.toLowerCase().includes(query)
+  )
+  showSearchResults.value = true
+}
+
+const navigateToResult = (result) => {
+  showSearchResults.value = false
+  searchQuery.value = ''
+  navigateTo(result.path)
+}
+
+// Close search results when clicking outside
+onMounted(() => {
+  document.addEventListener('click', (e) => {
+    const searchBar = document.querySelector('.relative')
+    if (searchBar && !searchBar.contains(e.target)) {
+      showSearchResults.value = false
+    }
+  })
+})
 </script>
 
 <style scoped>
