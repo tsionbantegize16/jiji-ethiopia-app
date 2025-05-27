@@ -18,11 +18,17 @@ interface _GlobalComponents {
     'ProductCard': typeof import("../components/ProductCard.vue")['default']
     'SearchBar': typeof import("../components/SearchBar.vue")['default']
     'IconsCarIcon': typeof import("../components/icons/CarIcon.vue")['default']
+    'IconsChatIcon': typeof import("../components/icons/ChatIcon.vue")['default']
+    'IconsClothesIcon': typeof import("../components/icons/ClothesIcon.vue")['default']
+    'IconsComputerIcon': typeof import("../components/icons/ComputerIcon.vue")['default']
     'IconsElectronicsIcon': typeof import("../components/icons/ElectronicsIcon.vue")['default']
     'IconsFashionIcon': typeof import("../components/icons/FashionIcon.vue")['default']
+    'IconsFreeIcon': typeof import("../components/icons/FreeIcon.vue")['default']
     'IconsHomeIcon': typeof import("../components/icons/HomeIcon.vue")['default']
     'IconsJobIcon': typeof import("../components/icons/JobIcon.vue")['default']
     'IconsPhoneIcon': typeof import("../components/icons/PhoneIcon.vue")['default']
+    'IconsShieldIcon': typeof import("../components/icons/ShieldIcon.vue")['default']
+    'IconsSportsIcon': typeof import("../components/icons/SportsIcon.vue")['default']
     'NuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'NuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
     'NuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -53,11 +59,17 @@ interface _GlobalComponents {
     'LazyProductCard': LazyComponent<typeof import("../components/ProductCard.vue")['default']>
     'LazySearchBar': LazyComponent<typeof import("../components/SearchBar.vue")['default']>
     'LazyIconsCarIcon': LazyComponent<typeof import("../components/icons/CarIcon.vue")['default']>
+    'LazyIconsChatIcon': LazyComponent<typeof import("../components/icons/ChatIcon.vue")['default']>
+    'LazyIconsClothesIcon': LazyComponent<typeof import("../components/icons/ClothesIcon.vue")['default']>
+    'LazyIconsComputerIcon': LazyComponent<typeof import("../components/icons/ComputerIcon.vue")['default']>
     'LazyIconsElectronicsIcon': LazyComponent<typeof import("../components/icons/ElectronicsIcon.vue")['default']>
     'LazyIconsFashionIcon': LazyComponent<typeof import("../components/icons/FashionIcon.vue")['default']>
+    'LazyIconsFreeIcon': LazyComponent<typeof import("../components/icons/FreeIcon.vue")['default']>
     'LazyIconsHomeIcon': LazyComponent<typeof import("../components/icons/HomeIcon.vue")['default']>
     'LazyIconsJobIcon': LazyComponent<typeof import("../components/icons/JobIcon.vue")['default']>
     'LazyIconsPhoneIcon': LazyComponent<typeof import("../components/icons/PhoneIcon.vue")['default']>
+    'LazyIconsShieldIcon': LazyComponent<typeof import("../components/icons/ShieldIcon.vue")['default']>
+    'LazyIconsSportsIcon': LazyComponent<typeof import("../components/icons/SportsIcon.vue")['default']>
     'LazyNuxtWelcome': LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
     'LazyNuxtLayout': LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
     'LazyNuxtErrorBoundary': LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>
@@ -94,11 +106,17 @@ export const Header: typeof import("../components/Header.vue")['default']
 export const ProductCard: typeof import("../components/ProductCard.vue")['default']
 export const SearchBar: typeof import("../components/SearchBar.vue")['default']
 export const IconsCarIcon: typeof import("../components/icons/CarIcon.vue")['default']
+export const IconsChatIcon: typeof import("../components/icons/ChatIcon.vue")['default']
+export const IconsClothesIcon: typeof import("../components/icons/ClothesIcon.vue")['default']
+export const IconsComputerIcon: typeof import("../components/icons/ComputerIcon.vue")['default']
 export const IconsElectronicsIcon: typeof import("../components/icons/ElectronicsIcon.vue")['default']
 export const IconsFashionIcon: typeof import("../components/icons/FashionIcon.vue")['default']
+export const IconsFreeIcon: typeof import("../components/icons/FreeIcon.vue")['default']
 export const IconsHomeIcon: typeof import("../components/icons/HomeIcon.vue")['default']
 export const IconsJobIcon: typeof import("../components/icons/JobIcon.vue")['default']
 export const IconsPhoneIcon: typeof import("../components/icons/PhoneIcon.vue")['default']
+export const IconsShieldIcon: typeof import("../components/icons/ShieldIcon.vue")['default']
+export const IconsSportsIcon: typeof import("../components/icons/SportsIcon.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
 export const NuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -129,11 +147,17 @@ export const LazyHeader: LazyComponent<typeof import("../components/Header.vue")
 export const LazyProductCard: LazyComponent<typeof import("../components/ProductCard.vue")['default']>
 export const LazySearchBar: LazyComponent<typeof import("../components/SearchBar.vue")['default']>
 export const LazyIconsCarIcon: LazyComponent<typeof import("../components/icons/CarIcon.vue")['default']>
+export const LazyIconsChatIcon: LazyComponent<typeof import("../components/icons/ChatIcon.vue")['default']>
+export const LazyIconsClothesIcon: LazyComponent<typeof import("../components/icons/ClothesIcon.vue")['default']>
+export const LazyIconsComputerIcon: LazyComponent<typeof import("../components/icons/ComputerIcon.vue")['default']>
 export const LazyIconsElectronicsIcon: LazyComponent<typeof import("../components/icons/ElectronicsIcon.vue")['default']>
 export const LazyIconsFashionIcon: LazyComponent<typeof import("../components/icons/FashionIcon.vue")['default']>
+export const LazyIconsFreeIcon: LazyComponent<typeof import("../components/icons/FreeIcon.vue")['default']>
 export const LazyIconsHomeIcon: LazyComponent<typeof import("../components/icons/HomeIcon.vue")['default']>
 export const LazyIconsJobIcon: LazyComponent<typeof import("../components/icons/JobIcon.vue")['default']>
 export const LazyIconsPhoneIcon: LazyComponent<typeof import("../components/icons/PhoneIcon.vue")['default']>
+export const LazyIconsShieldIcon: LazyComponent<typeof import("../components/icons/ShieldIcon.vue")['default']>
+export const LazyIconsSportsIcon: LazyComponent<typeof import("../components/icons/SportsIcon.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
 export const LazyNuxtErrorBoundary: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>
