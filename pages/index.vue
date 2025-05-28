@@ -282,25 +282,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const searchQuery = ref('')
 const showSearchResults = ref(false)
 
+// Click-outside handler for dropdown
+function handleClickOutside(event: MouseEvent) {
+  const dropdown = document.getElementById('search-dropdown')
+  const input = document.getElementById('search-input')
+  if (dropdown && !dropdown.contains(event.target as Node) && input && !input.contains(event.target as Node)) {
+    showSearchResults.value = false
+  }
+}
+onMounted(() => {
+  document.addEventListener('mousedown', handleClickOutside)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('mousedown', handleClickOutside)
+})
+
 interface SearchResult {
   id: string
   title: string
   category: string
-  price: string
+  price: number
   image: string
   path: string
 }
 
 const searchResults = ref<SearchResult[]>([])
 
-// Popular Categories Data
+// Popular Categories Data (Unsplash images)
 const popularCategories = [
   {
     id: 1,
@@ -308,7 +323,7 @@ const popularCategories = [
     count: '1,200',
     icon: 'CarIcon',
     link: '/category/vehicles',
-    image: '/images/categories/vehicles.jpg'
+    image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 2,
@@ -316,7 +331,7 @@ const popularCategories = [
     count: '3,500',
     icon: 'PhoneIcon',
     link: '/category/phones',
-    image: '/images/categories/phones.jpg'
+    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 3,
@@ -324,7 +339,7 @@ const popularCategories = [
     count: '2,800',
     icon: 'ComputerIcon',
     link: '/category/electronics',
-    image: '/images/categories/electronics.jpg'
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 4,
@@ -332,7 +347,7 @@ const popularCategories = [
     count: '4,200',
     icon: 'ClothesIcon',
     link: '/category/fashion',
-    image: '/images/categories/fashion.jpg'
+    image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 5,
@@ -340,7 +355,7 @@ const popularCategories = [
     count: '1,800',
     icon: 'HomeIcon',
     link: '/category/home-garden',
-    image: '/images/categories/home.jpg'
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 6,
@@ -348,19 +363,19 @@ const popularCategories = [
     count: '900',
     icon: 'SportsIcon',
     link: '/category/sports',
-    image: '/images/categories/sports.jpg'
+    image: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=500&q=60'
   }
 ]
 
-// Latest Listings Data
+// Latest Listings Data (Unsplash images, numeric price)
 const latestListings = [
   {
     id: 1,
     title: 'iPhone 13 Pro Max',
-    price: 'ETB 45,000',
+    price: 45000,
     location: 'Addis Ababa',
     time: '2 hours ago',
-    image: '/images/listings/iphone.jpg',
+    image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?auto=format&fit=crop&w=500&q=60',
     isNew: true,
     condition: 'Like New',
     seller: {
@@ -372,10 +387,10 @@ const latestListings = [
   {
     id: 2,
     title: 'Toyota Land Cruiser 2020',
-    price: 'ETB 2,500,000',
+    price: 2500000,
     location: 'Dire Dawa',
     time: '5 hours ago',
-    image: '/images/listings/landcruiser.jpg',
+    image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=60',
     isNew: false,
     condition: 'Excellent',
     seller: {
@@ -387,10 +402,10 @@ const latestListings = [
   {
     id: 3,
     title: 'Samsung 4K Smart TV',
-    price: 'ETB 35,000',
+    price: 35000,
     location: 'Hawassa',
     time: '1 day ago',
-    image: '/images/listings/tv.jpg',
+    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=500&q=60',
     isNew: true,
     condition: 'New',
     seller: {
@@ -402,10 +417,10 @@ const latestListings = [
   {
     id: 4,
     title: 'MacBook Pro 2021',
-    price: 'ETB 85,000',
+    price: 85000,
     location: 'Addis Ababa',
     time: '2 days ago',
-    image: '/images/listings/macbook.jpg',
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=60',
     isNew: false,
     condition: 'Like New',
     seller: {
@@ -477,126 +492,82 @@ const locations = [
   { id: 4, name: 'Mekelle' }
 ]
 
-// Sample data for all products
+// Sample data for all products (Unsplash images, numeric price)
 const allProducts = [
-  // Phones
   {
     id: 'phone-1',
     title: 'iPhone 13 Pro',
     category: 'Phones',
-    price: 'ETB 45,000',
-    image: '/images/listings/iphone.jpg',
+    price: 45000,
+    image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?auto=format&fit=crop&w=500&q=60',
     path: '/category/phones'
   },
-  // Vehicles
   {
     id: 'vehicle-1',
     title: 'Toyota Land Cruiser',
     category: 'Vehicles',
-    price: 'ETB 2,500,000',
-    image: '/images/listings/landcruiser.jpg',
+    price: 2500000,
+    image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=60',
     path: '/category/vehicles'
   },
-  // Electronics
   {
     id: 'electronics-1',
     title: 'Samsung Smart TV',
     category: 'Electronics',
-    price: 'ETB 35,000',
-    image: '/images/listings/tv.jpg',
+    price: 35000,
+    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=500&q=60',
     path: '/category/electronics'
   },
   {
     id: 'electronics-2',
     title: 'MacBook Pro',
     category: 'Electronics',
-    price: 'ETB 85,000',
-    image: '/images/listings/macbook.jpg',
+    price: 85000,
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=60',
     path: '/category/electronics'
   },
-  // Home & Garden
   {
     id: 'home-1',
     title: 'Modern Sofa Set',
     category: 'Home & Garden',
-    price: 'ETB 45,000',
-    image: '/images/listings/sofa.jpg',
+    price: 45000,
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
     path: '/category/home-garden'
   },
   {
     id: 'home-2',
     title: 'Garden Tools Set',
     category: 'Home & Garden',
-    price: 'ETB 5,000',
-    image: '/images/listings/garden-tools.jpg',
+    price: 5000,
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=60',
     path: '/category/home-garden'
   },
-  // Sports
   {
     id: 'sports-1',
-    title: 'Professional Football',
+    title: 'Nike Air Zoom Pegasus 39',
     category: 'Sports',
-    price: 'ETB 2,500',
-    image: '/images/listings/football.jpg',
+    price: 8500,
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60',
     path: '/category/sports'
-  },
-  {
-    id: 'sports-2',
-    title: 'Basketball Set',
-    category: 'Sports',
-    price: 'ETB 5,000',
-    image: '/images/listings/basketball.jpg',
-    path: '/category/sports'
-  },
-  // Luxury/Premium
-  {
-    id: 'luxury-1',
-    title: 'Rolex Datejust 41',
-    category: 'Premium & Luxury',
-    price: 'ETB 450,000',
-    image: '/images/listings/rolex.jpg',
-    path: '/category/grand'
-  },
-  {
-    id: 'luxury-2',
-    title: 'Mercedes-Benz S-Class',
-    category: 'Premium & Luxury',
-    price: 'ETB 4,500,000',
-    image: '/images/listings/mercedes.jpg',
-    path: '/category/grand'
   }
 ]
 
-const handleSearch = () => {
-  if (searchQuery.value.trim() === '') {
+function handleSearch() {
+  if (!searchQuery.value) {
     searchResults.value = []
-    showSearchResults.value = false
     return
   }
-
   const query = searchQuery.value.toLowerCase()
-  searchResults.value = allProducts.filter(product => 
+  searchResults.value = allProducts.filter(product =>
     product.title.toLowerCase().includes(query) ||
     product.category.toLowerCase().includes(query)
   )
-  showSearchResults.value = true
 }
 
-const navigateToResult = (result) => {
+function navigateToResult(result: SearchResult) {
+  router.push(result.path)
   showSearchResults.value = false
-  searchQuery.value = ''
-  navigateTo(result.path)
 }
-
-// Close search results when clicking outside
-onMounted(() => {
-  document.addEventListener('click', (e) => {
-    const searchBar = document.querySelector('.relative')
-    if (searchBar && !searchBar.contains(e.target)) {
-      showSearchResults.value = false
-    }
-  })
-})
 </script>
 
 <style scoped>
