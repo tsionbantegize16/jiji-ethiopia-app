@@ -1,152 +1,250 @@
 <template>
-  <div class="min-h-screen bg-[#C9F0EF] dark:bg-[#4F7F8F]">
-    <div class="container mx-auto px-4 py-8">
-      <!-- Header -->
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-4">
-          Sports & Fitness
-        </h1>
-        <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-          Find sports equipment, fitness gear, and more
-        </p>
-      </div>
-
-      <!-- Filters -->
-      <div class="bg-white dark:bg-[#4F7F8F] rounded-xl p-6 mb-8 shadow-lg">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-              Price Range
-            </label>
-            <select class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none">
-              <option value="">Any Price</option>
-              <option value="0-1000">Under ETB 1,000</option>
-              <option value="1000-5000">ETB 1,000 - 5,000</option>
-              <option value="5000-10000">ETB 5,000 - 10,000</option>
-              <option value="10000+">Over ETB 10,000</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-              Sport Type
-            </label>
-            <select class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none">
-              <option value="">All Sports</option>
-              <option value="football">Football</option>
-              <option value="basketball">Basketball</option>
-              <option value="fitness">Fitness</option>
-              <option value="running">Running</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-              Location
-            </label>
-            <select class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none">
-              <option value="">All Locations</option>
-              <option value="addis-ababa">Addis Ababa</option>
-              <option value="dire-dawa">Dire Dawa</option>
-              <option value="bahir-dar">Bahir Dar</option>
-              <option value="mekelle">Mekelle</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-              Sort By
-            </label>
-            <select class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 outline-none">
-              <option value="newest">Newest First</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="popular">Most Popular</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Listings Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div 
-          v-for="listing in sportsListings" 
-          :key="listing.id"
-          class="bg-white dark:bg-[#4F7F8F] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1"
-        >
-          <NuxtLink :to="`/listings/${listing.id}`">
-            <div class="relative">
-              <img 
-                :src="listing.image" 
-                :alt="listing.title"
-                class="w-full h-48 object-cover"
-              />
-              <div 
-                v-if="listing.isNew"
-                class="absolute top-4 right-4 bg-[#2EC4B6] text-white px-3 py-1 rounded-full text-sm font-medium"
-              >
-                New
-              </div>
-              <div class="absolute bottom-4 left-4 bg-white/90 dark:bg-[#4F7F8F]/90 text-[#4F7F8F] dark:text-[#C9F0EF] px-3 py-1 rounded-full text-sm font-medium">
-                {{ listing.condition }}
-              </div>
-            </div>
-            <div class="p-4">
-              <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-                {{ listing.title }}
-              </h3>
-              <p class="text-xl font-bold text-[#2EC4B6] mb-2">
-                {{ listing.price }}
-              </p>
-              <div class="flex items-center text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                {{ listing.location }}
-              </div>
-            </div>
-          </NuxtLink>
-        </div>
-      </div>
-    </div>
-  </div>
+  <CategoryLayout
+    title="Sports & Fitness"
+    description="Find quality sports equipment, fitness gear, and outdoor activities gear in Ethiopia."
+    :items="sportsItems"
+    @toggle-favorite="toggleFavorite"
+  />
 </template>
 
 <script setup lang="ts">
-const sportsListings = [
+definePageMeta({
+  title: 'Sports & Fitness in Ethiopia',
+  description: 'Discover sports equipment, fitness gear, and outdoor activities gear in Ethiopia.'
+})
+
+import { ref } from 'vue'
+
+interface SportsItem {
+  id: number
+  title: string
+  price: number
+  location: string
+  image: string
+  condition: string
+  isFavorite: boolean
+  brand: string
+  category: string
+  specs: {
+    material?: string
+    size?: string
+    weight?: string
+    features?: string
+    color?: string
+    type?: string
+  }
+  warranty: string
+}
+
+const sportsItems = ref<SportsItem[]>([
   {
     id: 1,
-    title: 'Professional Football',
-    price: 'ETB 2,500',
+    title: 'Nike Air Zoom Pegasus 39',
+    price: 8500,
     location: 'Addis Ababa',
-    image: '/images/listings/football.jpg',
-    isNew: true,
-    condition: 'New'
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: true,
+    brand: 'Nike',
+    category: 'Running Shoes',
+    specs: {
+      material: 'Breathable Mesh',
+      size: 'EU 42-46',
+      weight: '280g',
+      features: 'Air Zoom cushioning, Reflective elements'
+    },
+    warranty: '6 Months Warranty'
   },
   {
     id: 2,
-    title: 'Basketball Set',
-    price: 'ETB 4,500',
+    title: 'Adidas Tiro 23 Training Kit',
+    price: 4500,
     location: 'Dire Dawa',
-    image: '/images/listings/basketball.jpg',
-    isNew: false,
-    condition: 'Like New'
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false,
+    brand: 'Adidas',
+    category: 'Training Wear',
+    specs: {
+      material: 'Climacool fabric',
+      size: 'S-XXL',
+      features: 'Moisture-wicking, Quick-dry'
+    },
+    warranty: '3 Months Warranty'
   },
   {
     id: 3,
-    title: 'Fitness Equipment',
-    price: 'ETB 15,000',
-    location: 'Bahir Dar',
-    image: '/images/listings/fitness.jpg',
-    isNew: true,
-    condition: 'New'
+    title: 'Wilson Pro Staff Tennis Racket',
+    price: 12000,
+    location: 'Addis Ababa',
+    image: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: true,
+    brand: 'Wilson',
+    category: 'Tennis',
+    specs: {
+      material: 'Graphite',
+      weight: '315g',
+      features: 'Professional grade, Pre-strung'
+    },
+    warranty: '1 Year Warranty'
   },
   {
     id: 4,
-    title: 'Running Shoes',
-    price: 'ETB 3,500',
+    title: 'Life Fitness Treadmill',
+    price: 85000,
+    location: 'Hawassa',
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=500&q=60',
+    condition: 'like_new',
+    isFavorite: false,
+    brand: 'Life Fitness',
+    category: 'Fitness Equipment',
+    specs: {
+      features: '12 Programs, Heart rate monitor, 2.5HP motor',
+      weight: '120kg'
+    },
+    warranty: '2 Years Warranty'
+  },
+  {
+    id: 5,
+    title: 'Nike Basketball',
+    price: 2500,
+    location: 'Addis Ababa',
+    image: 'https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false,
+    brand: 'Nike',
+    category: 'Basketball',
+    specs: {
+      material: 'Composite leather',
+      size: 'Size 7',
+      features: 'Indoor/Outdoor'
+    },
+    warranty: '3 Months Warranty'
+  },
+  {
+    id: 6,
+    title: 'Under Armour Training Mat',
+    price: 3500,
+    location: 'Bahir Dar',
+    image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: true,
+    brand: 'Under Armour',
+    category: 'Fitness Accessories',
+    specs: {
+      material: 'NBR Foam',
+      size: '183 x 61 x 10mm',
+      features: 'Non-slip surface, Lightweight'
+    },
+    warranty: '6 Months Warranty'
+  },
+  {
+    id: 7,
+    title: 'Adidas Predator Soccer Cleats',
+    price: 9500,
     location: 'Mekelle',
-    image: '/images/listings/shoes.jpg',
-    isNew: false,
-    condition: 'Good'
+    image: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false,
+    brand: 'Adidas',
+    category: 'Soccer',
+    specs: {
+      material: 'Synthetic',
+      size: 'EU 40-45',
+      features: 'Firm ground, Control frame'
+    },
+    warranty: '6 Months Warranty'
+  },
+  {
+    id: 8,
+    title: 'Yoga Mat Premium',
+    price: 2800,
+    location: 'Addis Ababa',
+    image: 'https://images.unsplash.com/photo-1592432678016-e910b452f9a2?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: true,
+    brand: 'Liforme',
+    category: 'Yoga',
+    specs: {
+      material: 'Eco-friendly TPE',
+      size: '180 x 66cm',
+      features: 'Non-slip, Alignment lines'
+    },
+    warranty: '1 Year Warranty'
+  },
+  {
+    id: 9,
+    title: 'Mountain Bike Trek',
+    price: 45000,
+    location: 'Dire Dawa',
+    image: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false,
+    brand: 'Trek',
+    category: 'Cycling',
+    specs: {
+      material: 'Aluminum frame',
+      features: '21-speed, Disc brakes',
+      weight: '12.5kg'
+    },
+    warranty: '2 Years Warranty'
+  },
+  {
+    id: 10,
+    title: 'Boxing Gloves Pro',
+    price: 3500,
+    location: 'Hawassa',
+    image: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false,
+    brand: 'Everlast',
+    category: 'Boxing',
+    specs: {
+      material: 'Leather',
+      size: '16oz',
+      features: 'Professional grade, Ventilated'
+    },
+    warranty: '6 Months Warranty'
+  },
+  {
+    id: 11,
+    title: 'Swimming Goggles',
+    price: 1200,
+    location: 'Addis Ababa',
+    image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: true,
+    brand: 'Speedo',
+    category: 'Swimming',
+    specs: {
+      material: 'Silicone',
+      features: 'Anti-fog, UV protection',
+      color: 'Blue/Black'
+    },
+    warranty: '3 Months Warranty'
+  },
+  {
+    id: 12,
+    title: 'Fitness Resistance Bands Set',
+    price: 1800,
+    location: 'Bahir Dar',
+    image: 'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=500&q=60',
+    condition: 'new',
+    isFavorite: false,
+    brand: 'TheraBand',
+    category: 'Fitness Accessories',
+    specs: {
+      material: 'Natural latex',
+      features: '5 resistance levels',
+      color: 'Multi-color set'
+    },
+    warranty: '6 Months Warranty'
   }
-]
+])
+
+function toggleFavorite(id: number) {
+  const item = sportsItems.value.find(i => i.id === id)
+  if (item) item.isFavorite = !item.isFavorite
+}
 </script> 
