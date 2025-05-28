@@ -212,29 +212,29 @@
 
     <!-- Why Choose Us -->
     <section class="py-16 bg-white dark:bg-[#4F7F8F]">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-12 text-center">
-          Why Choose Jiji Ethiopia?
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div 
-            v-for="feature in features" 
-            :key="feature.id"
-            class="text-center"
-          >
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2EC4B6]/10 dark:bg-[#2EC4B6]/20 flex items-center justify-center">
-              <component :is="feature.icon" class="w-8 h-8 text-[#4F7F8F] dark:text-[#C9F0EF]" />
-            </div>
-            <h3 class="text-xl font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-              {{ feature.title }}
-            </h3>
-            <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-              {{ feature.description }}
-            </p>
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-12 text-center">
+        Why Choose Jiji Ethiopia?
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div 
+          v-for="feature in features" 
+          :key="feature.id"
+          class="text-center"
+        >
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2EC4B6]/10 dark:bg-[#2EC4B6]/20 flex items-center justify-center">
+            <component :is="feature.icon" class="w-8 h-8 text-[#4F7F8F] dark:text-[#C9F0EF]" />
           </div>
+          <h3 class="text-xl font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
+            {{ feature.title }}
+          </h3>
+          <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
+            {{ feature.description }}
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
     <!-- Statistics -->
     <section class="py-16 bg-[#C9F0EF] dark:bg-[#4F7F8F]">
@@ -298,10 +298,50 @@ interface SearchResult {
   path: string
 }
 
+interface Seller {
+  name: string
+  rating: number
+  verified: boolean
+}
+
+interface Listing {
+  id: number
+  title: string
+  price: string
+  location: string
+  time: string
+  image: string
+  isNew: boolean
+  condition: string
+  seller: Seller
+}
+
+interface Category {
+  id: number
+  name: string
+  count: string
+  icon: string
+  link: string
+  image: string
+}
+
+interface Feature {
+  id: number
+  title: string
+  description: string
+  icon: string
+}
+
+interface Statistic {
+  id: number
+  value: string
+  label: string
+}
+
 const searchResults = ref<SearchResult[]>([])
 
 // Popular Categories Data
-const popularCategories = [
+const popularCategories = ref<Category[]>([
   {
     id: 1,
     name: 'Vehicles',
@@ -350,10 +390,10 @@ const popularCategories = [
     link: '/category/sports',
     image: '/images/categories/sports.jpg'
   }
-]
+])
 
 // Latest Listings Data
-const latestListings = [
+const latestListings = ref<Listing[]>([
   {
     id: 1,
     title: 'iPhone 13 Pro Max',
@@ -414,10 +454,10 @@ const latestListings = [
       verified: true
     }
   }
-]
+])
 
 // Features Data
-const features = [
+const features = ref<Feature[]>([
   {
     id: 1,
     title: '100% Free',
@@ -436,10 +476,10 @@ const features = [
     description: 'Chat directly with sellers in real-time.',
     icon: 'ChatIcon'
   }
-]
+])
 
 // Statistics Data
-const statistics = [
+const statistics = ref<Statistic[]>([
   {
     id: 1,
     value: '20,000+',
@@ -460,25 +500,10 @@ const statistics = [
     value: '5,000+',
     label: 'Daily Deals'
   }
-]
-
-// Categories and Locations for Search
-const categories = [
-  { id: 1, name: 'Vehicles' },
-  { id: 2, name: 'Phones' },
-  { id: 3, name: 'Electronics' },
-  { id: 4, name: 'Fashion' }
-]
-
-const locations = [
-  { id: 1, name: 'Addis Ababa' },
-  { id: 2, name: 'Dire Dawa' },
-  { id: 3, name: 'Bahir Dar' },
-  { id: 4, name: 'Mekelle' }
-]
+])
 
 // Sample data for all products
-const allProducts = [
+const allProducts = ref<SearchResult[]>([
   // Phones
   {
     id: 'phone-1',
@@ -565,7 +590,7 @@ const allProducts = [
     image: '/images/listings/mercedes.jpg',
     path: '/category/grand'
   }
-]
+])
 
 const handleSearch = () => {
   if (searchQuery.value.trim() === '') {
@@ -575,24 +600,24 @@ const handleSearch = () => {
   }
 
   const query = searchQuery.value.toLowerCase()
-  searchResults.value = allProducts.filter(product => 
+  searchResults.value = allProducts.value.filter(product => 
     product.title.toLowerCase().includes(query) ||
     product.category.toLowerCase().includes(query)
   )
   showSearchResults.value = true
 }
 
-const navigateToResult = (result) => {
+const navigateToResult = (result: SearchResult) => {
   showSearchResults.value = false
   searchQuery.value = ''
-  navigateTo(result.path)
+  router.push(result.path)
 }
 
 // Close search results when clicking outside
 onMounted(() => {
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', (e: MouseEvent) => {
     const searchBar = document.querySelector('.relative')
-    if (searchBar && !searchBar.contains(e.target)) {
+    if (searchBar && e.target instanceof Node && !searchBar.contains(e.target)) {
       showSearchResults.value = false
     }
   })
@@ -628,5 +653,57 @@ onMounted(() => {
 .bg-gradient-to-r {
   background-size: 200% 200%;
   animation: gradient 15s ease infinite;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #2EC4B6 #C9F0EF;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #C9F0EF;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2EC4B6;
+  border-radius: 3px;
+}
+
+/* Enhanced hover effects */
+.hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+.hover\:translate-x-1:hover {
+  transform: translateX(0.25rem);
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Enhanced shadows */
+.shadow-hover {
+  transition: box-shadow 0.3s ease;
+}
+
+.shadow-hover:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 </style> 
