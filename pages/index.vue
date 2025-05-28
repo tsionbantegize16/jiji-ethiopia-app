@@ -214,29 +214,29 @@
 
     <!-- Why Choose Us -->
     <section class="py-16 bg-white dark:bg-[#4F7F8F]">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-12 text-center">
-        Why Choose Jiji Ethiopia?
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div 
-          v-for="feature in features" 
-          :key="feature.id"
-          class="text-center"
-        >
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2EC4B6]/10 dark:bg-[#2EC4B6]/20 flex items-center justify-center">
-            <component :is="feature.icon" class="w-8 h-8 text-[#4F7F8F] dark:text-[#C9F0EF]" />
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-12 text-center">
+          Why Choose Jiji Ethiopia?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div 
+            v-for="feature in features" 
+            :key="feature.id"
+            class="text-center group p-8 bg-gray-50 dark:bg-[#2EC4B6]/10 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+          >
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center bg-gradient-to-tr from-[#2EC4B6] to-[#5EBFCA] group-hover:scale-110 transition-transform duration-300 shadow-lg">
+              <component :is="feature.icon" class="w-8 h-8 text-white animate-bounce-slow" aria-hidden="true" />
+            </div>
+            <h3 class="text-xl font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
+              {{ feature.title }}
+            </h3>
+            <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
+              {{ feature.description }}
+            </p>
           </div>
-          <h3 class="text-xl font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-            {{ feature.title }}
-          </h3>
-          <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
-            {{ feature.description }}
-          </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
     <!-- Statistics -->
     <section class="py-16 bg-[#C9F0EF] dark:bg-[#4F7F8F]">
@@ -286,6 +286,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import { ShieldCheckIcon, ChatBubbleLeftRightIcon, TagIcon } from '@heroicons/vue/24/solid'
 
 const router = useRouter()
 const searchQuery = ref('')
@@ -446,19 +447,19 @@ const features = [
     id: 1,
     title: '100% Free',
     description: 'No hidden fees or charges. List your items for free.',
-    icon: 'FreeIcon'
+    icon: TagIcon
   },
   {
     id: 2,
     title: 'Safe & Verified',
     description: 'All sellers are verified for your safety.',
-    icon: 'ShieldIcon'
+    icon: ShieldCheckIcon
   },
   {
     id: 3,
     title: 'Instant Chat',
     description: 'Chat directly with sellers in real-time.',
-    icon: 'ChatIcon'
+    icon: ChatBubbleLeftRightIcon
   }
 ]
 
@@ -650,5 +651,13 @@ onMounted(() => {
 .bg-gradient-to-r {
   background-size: 200% 200%;
   animation: gradient 15s ease infinite;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2.5s infinite;
 }
 </style> 
