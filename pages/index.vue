@@ -2,8 +2,9 @@
   <div>
     <!-- Hero Section -->
     <section class="relative py-20 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] overflow-hidden">
-      <div class="absolute inset-0 bg-black/20"></div>
-      <div class="absolute inset-0 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center mix-blend-overlay"></div>
+      <div class="absolute inset-0 bg-black/30"></div>
+      <div class="absolute inset-0 bg-[url('/images/hero-bg-new.jpg')] bg-cover bg-center mix-blend-overlay"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40"></div>
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
           <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
