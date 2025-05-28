@@ -298,50 +298,10 @@ interface SearchResult {
   path: string
 }
 
-interface Seller {
-  name: string
-  rating: number
-  verified: boolean
-}
-
-interface Listing {
-  id: number
-  title: string
-  price: string
-  location: string
-  time: string
-  image: string
-  isNew: boolean
-  condition: string
-  seller: Seller
-}
-
-interface Category {
-  id: number
-  name: string
-  count: string
-  icon: string
-  link: string
-  image: string
-}
-
-interface Feature {
-  id: number
-  title: string
-  description: string
-  icon: string
-}
-
-interface Statistic {
-  id: number
-  value: string
-  label: string
-}
-
 const searchResults = ref<SearchResult[]>([])
 
 // Popular Categories Data
-const popularCategories = ref<Category[]>([
+const popularCategories = [
   {
     id: 1,
     name: 'Vehicles',
@@ -390,10 +350,10 @@ const popularCategories = ref<Category[]>([
     link: '/category/sports',
     image: '/images/categories/sports.jpg'
   }
-])
+]
 
 // Latest Listings Data
-const latestListings = ref<Listing[]>([
+const latestListings = [
   {
     id: 1,
     title: 'iPhone 13 Pro Max',
@@ -454,10 +414,10 @@ const latestListings = ref<Listing[]>([
       verified: true
     }
   }
-])
+]
 
 // Features Data
-const features = ref<Feature[]>([
+const features = [
   {
     id: 1,
     title: '100% Free',
@@ -476,10 +436,10 @@ const features = ref<Feature[]>([
     description: 'Chat directly with sellers in real-time.',
     icon: 'ChatIcon'
   }
-])
+]
 
 // Statistics Data
-const statistics = ref<Statistic[]>([
+const statistics = [
   {
     id: 1,
     value: '20,000+',
@@ -500,10 +460,25 @@ const statistics = ref<Statistic[]>([
     value: '5,000+',
     label: 'Daily Deals'
   }
-])
+]
+
+// Categories and Locations for Search
+const categories = [
+  { id: 1, name: 'Vehicles' },
+  { id: 2, name: 'Phones' },
+  { id: 3, name: 'Electronics' },
+  { id: 4, name: 'Fashion' }
+]
+
+const locations = [
+  { id: 1, name: 'Addis Ababa' },
+  { id: 2, name: 'Dire Dawa' },
+  { id: 3, name: 'Bahir Dar' },
+  { id: 4, name: 'Mekelle' }
+]
 
 // Sample data for all products
-const allProducts = ref<SearchResult[]>([
+const allProducts = [
   // Phones
   {
     id: 'phone-1',
@@ -590,7 +565,7 @@ const allProducts = ref<SearchResult[]>([
     image: '/images/listings/mercedes.jpg',
     path: '/category/grand'
   }
-])
+]
 
 const handleSearch = () => {
   if (searchQuery.value.trim() === '') {
@@ -600,24 +575,24 @@ const handleSearch = () => {
   }
 
   const query = searchQuery.value.toLowerCase()
-  searchResults.value = allProducts.value.filter(product => 
+  searchResults.value = allProducts.filter(product => 
     product.title.toLowerCase().includes(query) ||
     product.category.toLowerCase().includes(query)
   )
   showSearchResults.value = true
 }
 
-const navigateToResult = (result: SearchResult) => {
+const navigateToResult = (result) => {
   showSearchResults.value = false
   searchQuery.value = ''
-  router.push(result.path)
+  navigateTo(result.path)
 }
 
 // Close search results when clicking outside
 onMounted(() => {
-  document.addEventListener('click', (e: MouseEvent) => {
+  document.addEventListener('click', (e) => {
     const searchBar = document.querySelector('.relative')
-    if (searchBar && e.target instanceof Node && !searchBar.contains(e.target)) {
+    if (searchBar && !searchBar.contains(e.target)) {
       showSearchResults.value = false
     }
   })
@@ -653,57 +628,5 @@ onMounted(() => {
 .bg-gradient-to-r {
   background-size: 200% 200%;
   animation: gradient 15s ease infinite;
-}
-
-/* Custom scrollbar */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #2EC4B6 #C9F0EF;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #C9F0EF;
-  border-radius: 3px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #2EC4B6;
-  border-radius: 3px;
-}
-
-/* Enhanced hover effects */
-.hover\:scale-110:hover {
-  transform: scale(1.1);
-}
-
-.hover\:translate-x-1:hover {
-  transform: translateX(0.25rem);
-}
-
-/* Loading animation */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Enhanced shadows */
-.shadow-hover {
-  transition: box-shadow 0.3s ease;
-}
-
-.shadow-hover:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 </style> 
