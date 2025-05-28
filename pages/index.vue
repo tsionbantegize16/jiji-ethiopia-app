@@ -102,8 +102,8 @@
           Popular Categories
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          <NuxtLink 
-            v-for="category in popularCategories" 
+          <NuxtLink
+            v-for="category in popularCategories"
             :key="category.id"
             :to="category.link"
             class="group"
@@ -607,6 +607,11 @@ onMounted(() => {
   transition-duration: 300ms;
 }
 
+/* Add hover glow effect */
+.group:hover .relative {
+  filter: drop-shadow(0 0 8px rgba(46, 196, 182, 0.3));
+}
+
 /* Add gradient animation */
 @keyframes gradient {
   0% {
@@ -623,20 +628,5 @@ onMounted(() => {
 .bg-gradient-to-r {
   background-size: 200% 200%;
   animation: gradient 15s ease infinite;
-}
-
-/* Add hover effects */
-.group:hover .group-hover\:scale-110 {
-  transform: scale(1.1);
-}
-
-/* Add shadow effects */
-.shadow-2xl {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-/* Add backdrop blur */
-.backdrop-blur-sm {
-  backdrop-filter: blur(4px);
 }
 </style> 

@@ -1,10 +1,8 @@
 <template>
-  <div class="min-h-screen bg-[#C9F0EF] dark:bg-[#4F7F8F] flex flex-col">
+  <div class="min-h-screen bg-gray-50 dark:bg-[#4F7F8F]">
     <Header />
-    <main class="flex-grow">
-      <div class="container mx-auto px-4 py-8">
-        <slot />
-      </div>
+    <main>
+      <slot />
     </main>
     <Footer />
   </div>

@@ -35,7 +35,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'Buy and sell anything in Ethiopia' }
+        { name: 'description', content: 'Buy and sell everything in Ethiopia' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -57,7 +57,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000'
+      apiBase: process.env.API_BASE || 'http://localhost:3000'
     }
   },
   experimental: {
@@ -73,5 +73,6 @@ export default defineNuxtConfig({
     options: {
       strict: false
     }
-  }
+  },
+  ssr: true
 }) 

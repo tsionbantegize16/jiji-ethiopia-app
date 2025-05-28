@@ -1,10 +1,8 @@
 <template>
-  <div class="min-h-screen bg-[#C9F0EF] dark:bg-[#4F7F8F]">
-    <Header />
-    <main>
+  <div>
+    <NuxtLayout>
       <NuxtPage />
-    </main>
-    <Footer />
+    </NuxtLayout>
   </div>
 </template>
 

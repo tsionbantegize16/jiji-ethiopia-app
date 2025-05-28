@@ -2,7 +2,6 @@
   <div class="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-[#4F7F8F] dark:to-[#2EC4B6]">
     <!-- Hero Section -->
     <section class="relative py-20 overflow-hidden">
-      <div class="absolute inset-0 bg-[url('/assets/images/about/hero-bg.jpg')] bg-cover bg-center mix-blend-overlay"></div>
       <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6]/90 to-[#5EBFCA]/90"></div>
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
@@ -10,8 +9,32 @@
             About Jiji Ethiopia
           </h1>
           <p class="text-xl text-white/90 mb-8 drop-shadow">
-            Empowering Ethiopians through trusted online marketplace
+            The largest marketplace in Ethiopia. Buy and sell everything from cars to phones.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white dark:bg-[#4F7F8F]">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="text-center">
+            <div class="text-4xl font-bold text-[#2EC4B6] mb-2">10,000+</div>
+            <div class="text-[#4F7F8F] dark:text-[#C9F0EF]">Listings</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-[#2EC4B6] mb-2">50+</div>
+            <div class="text-[#4F7F8F] dark:text-[#C9F0EF]">Cities Covered</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-[#2EC4B6] mb-2">5,000+</div>
+            <div class="text-[#4F7F8F] dark:text-[#C9F0EF]">Daily Deals</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-[#2EC4B6] mb-2">24/7</div>
+            <div class="text-[#4F7F8F] dark:text-[#C9F0EF]">Support</div>
+          </div>
         </div>
       </div>
     </section>
@@ -30,26 +53,24 @@
               </p>
               <div class="flex gap-4">
                 <div class="p-4 bg-white dark:bg-[#4F7F8F] rounded-xl shadow-lg">
-                  <div class="text-3xl font-bold text-[#2EC4B6]">1M+</div>
-                  <div class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Active Users</div>
+                  <div class="text-3xl font-bold text-[#2EC4B6]">10K+</div>
+                  <div class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Active Listings</div>
                 </div>
                 <div class="p-4 bg-white dark:bg-[#4F7F8F] rounded-xl shadow-lg">
-                  <div class="text-3xl font-bold text-[#2EC4B6]">500K+</div>
-                  <div class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Listings</div>
+                  <div class="text-3xl font-bold text-[#2EC4B6]">50+</div>
+                  <div class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Cities</div>
                 </div>
                 <div class="p-4 bg-white dark:bg-[#4F7F8F] rounded-xl shadow-lg">
-                  <div class="text-3xl font-bold text-[#2EC4B6]">98%</div>
-                  <div class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Satisfaction</div>
+                  <div class="text-3xl font-bold text-[#2EC4B6]">5K+</div>
+                  <div class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Daily Deals</div>
                 </div>
               </div>
             </div>
             <div class="relative">
               <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] rounded-2xl transform rotate-3"></div>
-              <img 
-                src="/assets/images/about/mission.jpg" 
-                alt="Our Mission" 
-                class="relative rounded-2xl shadow-xl transform -rotate-3 hover:rotate-0 transition-transform duration-300"
-              />
+              <div class="relative rounded-2xl shadow-xl transform -rotate-3 hover:rotate-0 transition-transform duration-300 bg-[#4F7F8F] h-96 flex items-center justify-center">
+                <span class="text-white text-lg">Mission Image</span>
+              </div>
             </div>
           </div>
         </div>
@@ -102,62 +123,25 @@
       </div>
     </section>
 
-    <!-- Team Section -->
-    <section class="py-20">
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-gray-50 dark:bg-[#4F7F8F]/50">
       <div class="container mx-auto px-4">
-        <div class="max-w-6xl mx-auto">
-          <h2 class="text-4xl font-bold text-center text-[#4F7F8F] dark:text-[#C9F0EF] mb-16">
-            Meet Our Team
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-4xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-8">
+            Stay Updated
           </h2>
-          <div class="grid md:grid-cols-4 gap-8">
-            <div class="text-center group">
-              <div class="relative mb-6">
-                <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] rounded-full transform rotate-3"></div>
-                <img 
-                  src="/assets/images/about/team-1.jpg" 
-                  alt="Team Member" 
-                  class="relative w-48 h-48 rounded-full object-cover mx-auto transform -rotate-3 group-hover:rotate-0 transition-transform duration-300"
-                />
-              </div>
-              <h3 class="text-xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Abebe Kebede</h3>
-              <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">CEO & Founder</p>
-            </div>
-            <div class="text-center group">
-              <div class="relative mb-6">
-                <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] rounded-full transform rotate-3"></div>
-                <img 
-                  src="/assets/images/about/team-2.jpg" 
-                  alt="Team Member" 
-                  class="relative w-48 h-48 rounded-full object-cover mx-auto transform -rotate-3 group-hover:rotate-0 transition-transform duration-300"
-                />
-              </div>
-              <h3 class="text-xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Kebede Abebe</h3>
-              <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">CTO</p>
-            </div>
-            <div class="text-center group">
-              <div class="relative mb-6">
-                <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] rounded-full transform rotate-3"></div>
-                <img 
-                  src="/assets/images/about/team-3.jpg" 
-                  alt="Team Member" 
-                  class="relative w-48 h-48 rounded-full object-cover mx-auto transform -rotate-3 group-hover:rotate-0 transition-transform duration-300"
-                />
-              </div>
-              <h3 class="text-xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Tigist Haile</h3>
-              <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Head of Operations</p>
-            </div>
-            <div class="text-center group">
-              <div class="relative mb-6">
-                <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] rounded-full transform rotate-3"></div>
-                <img 
-                  src="/assets/images/about/team-4.jpg" 
-                  alt="Team Member" 
-                  class="relative w-48 h-48 rounded-full object-cover mx-auto transform -rotate-3 group-hover:rotate-0 transition-transform duration-300"
-                />
-              </div>
-              <h3 class="text-xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">Solomon Teklu</h3>
-              <p class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Head of Marketing</p>
-            </div>
+          <p class="text-xl text-[#4F7F8F]/80 dark:text-[#C9F0EF]/80 mb-12">
+            Get notified about new listings in your area and price drops on saved items.
+          </p>
+          <div class="flex gap-4 justify-center max-w-xl mx-auto">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              class="flex-1 px-6 py-4 rounded-full border-2 border-[#2EC4B6] focus:outline-none focus:ring-2 focus:ring-[#2EC4B6]"
+            />
+            <button class="px-8 py-4 bg-[#2EC4B6] text-white rounded-full font-bold hover:bg-[#2EC4B6]/90 transition-colors duration-300">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
@@ -188,20 +172,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-// Import images
-const images = {
-  hero: '/assets/images/about/hero-bg.jpg',
-  mission: '/assets/images/about/mission.jpg',
-  team: {
-    member1: '/assets/images/about/team-1.jpg',
-    member2: '/assets/images/about/team-2.jpg',
-    member3: '/assets/images/about/team-3.jpg',
-    member4: '/assets/images/about/team-4.jpg'
-  }
-}
-
 definePageMeta({
   title: 'About Us - Jiji Ethiopia',
   description: 'Learn more about Jiji Ethiopia, our mission, and why we\'re the trusted marketplace for buying and selling in Ethiopia.'

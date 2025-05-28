@@ -22,6 +22,7 @@ interface _GlobalComponents {
     'IconsChatIcon': typeof import("../components/icons/ChatIcon.vue")['default']
     'IconsClothesIcon': typeof import("../components/icons/ClothesIcon.vue")['default']
     'IconsComputerIcon': typeof import("../components/icons/ComputerIcon.vue")['default']
+    'IconsDeviceIcon': typeof import("../components/icons/DeviceIcon.vue")['default']
     'IconsElectronicsIcon': typeof import("../components/icons/ElectronicsIcon.vue")['default']
     'IconsFashionIcon': typeof import("../components/icons/FashionIcon.vue")['default']
     'IconsFreeIcon': typeof import("../components/icons/FreeIcon.vue")['default']
@@ -64,6 +65,7 @@ interface _GlobalComponents {
     'LazyIconsChatIcon': LazyComponent<typeof import("../components/icons/ChatIcon.vue")['default']>
     'LazyIconsClothesIcon': LazyComponent<typeof import("../components/icons/ClothesIcon.vue")['default']>
     'LazyIconsComputerIcon': LazyComponent<typeof import("../components/icons/ComputerIcon.vue")['default']>
+    'LazyIconsDeviceIcon': LazyComponent<typeof import("../components/icons/DeviceIcon.vue")['default']>
     'LazyIconsElectronicsIcon': LazyComponent<typeof import("../components/icons/ElectronicsIcon.vue")['default']>
     'LazyIconsFashionIcon': LazyComponent<typeof import("../components/icons/FashionIcon.vue")['default']>
     'LazyIconsFreeIcon': LazyComponent<typeof import("../components/icons/FreeIcon.vue")['default']>
@@ -112,6 +114,7 @@ export const IconsCarIcon: typeof import("../components/icons/CarIcon.vue")['def
 export const IconsChatIcon: typeof import("../components/icons/ChatIcon.vue")['default']
 export const IconsClothesIcon: typeof import("../components/icons/ClothesIcon.vue")['default']
 export const IconsComputerIcon: typeof import("../components/icons/ComputerIcon.vue")['default']
+export const IconsDeviceIcon: typeof import("../components/icons/DeviceIcon.vue")['default']
 export const IconsElectronicsIcon: typeof import("../components/icons/ElectronicsIcon.vue")['default']
 export const IconsFashionIcon: typeof import("../components/icons/FashionIcon.vue")['default']
 export const IconsFreeIcon: typeof import("../components/icons/FreeIcon.vue")['default']
@@ -154,6 +157,7 @@ export const LazyIconsCarIcon: LazyComponent<typeof import("../components/icons/
 export const LazyIconsChatIcon: LazyComponent<typeof import("../components/icons/ChatIcon.vue")['default']>
 export const LazyIconsClothesIcon: LazyComponent<typeof import("../components/icons/ClothesIcon.vue")['default']>
 export const LazyIconsComputerIcon: LazyComponent<typeof import("../components/icons/ComputerIcon.vue")['default']>
+export const LazyIconsDeviceIcon: LazyComponent<typeof import("../components/icons/DeviceIcon.vue")['default']>
 export const LazyIconsElectronicsIcon: LazyComponent<typeof import("../components/icons/ElectronicsIcon.vue")['default']>
 export const LazyIconsFashionIcon: LazyComponent<typeof import("../components/icons/FashionIcon.vue")['default']>
 export const LazyIconsFreeIcon: LazyComponent<typeof import("../components/icons/FreeIcon.vue")['default']>
