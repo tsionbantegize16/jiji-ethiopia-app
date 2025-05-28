@@ -23,10 +23,7 @@
           </span>
         </NuxtLink>
 
-        <!-- Search -->
-        <div class="hidden md:block flex-1 max-w-2xl mx-8">
-          <SearchBar />
-        </div>
+        
 
         <!-- Navigation -->
         <nav class="flex items-center space-x-4">

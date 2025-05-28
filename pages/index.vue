@@ -12,52 +12,83 @@
           <p class="text-xl text-white/90 mb-8 drop-shadow">
             The largest marketplace in Ethiopia. Find everything you need, from cars to phones.
           </p>
-          <!-- Search Bar -->
-          <div class="relative max-w-2xl mx-auto">
-            <div class="relative">
-              <input 
-                type="text" 
-                v-model="searchQuery"
-                @input="handleSearch"
-                placeholder="Search for anything..." 
-                class="w-full px-6 py-4 rounded-full bg-white/90 dark:bg-[#4F7F8F]/90 text-[#4F7F8F] dark:text-[#C9F0EF] placeholder-[#4F7F8F]/50 dark:placeholder-[#C9F0EF]/50 focus:outline-none focus:ring-2 focus:ring-[#2EC4B6] shadow-lg"
-              />
-              <button 
-                @click="handleSearch"
-                class="absolute right-4 top-1/2 -translate-y-1/2 bg-[#2EC4B6] text-white p-2 rounded-full hover:bg-[#2EC4B6]/90 transition-colors"
-              >
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </div>
-            <!-- Search Results Dropdown -->
-            <div 
-              v-if="showSearchResults && searchResults.length > 0"
-              class="absolute w-full mt-2 bg-white dark:bg-[#4F7F8F] rounded-xl shadow-xl overflow-hidden z-50"
-            >
-              <div class="max-h-96 overflow-y-auto">
-                <div 
-                  v-for="result in searchResults" 
-                  :key="result.id"
-                  @click="navigateToResult(result)"
-                  class="p-4 hover:bg-gray-50 dark:hover:bg-[#4F7F8F]/80 cursor-pointer transition-colors"
+          <!-- Enhanced Search Bar -->
+          <div class="relative max-w-2xl mx-auto mb-12">
+            <div class="relative group">
+              <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] rounded-full blur opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+              <div class="relative flex items-center">
+                <input 
+                  type="text" 
+                  v-model="searchQuery"
+                  @input="handleSearch"
+                  @focus="showSearchResults = true"
+                  placeholder="Search for anything..." 
+                  class="w-full px-6 py-4 pl-12 rounded-full bg-white/90 dark:bg-[#4F7F8F]/90 text-[#4F7F8F] dark:text-[#C9F0EF] placeholder-[#4F7F8F]/50 dark:placeholder-[#C9F0EF]/50 focus:outline-none focus:ring-2 focus:ring-[#2EC4B6] shadow-lg transition-all duration-300"
+                />
+                <div class="absolute left-4 text-[#4F7F8F] dark:text-[#C9F0EF]">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <button 
+                  @click="handleSearch"
+                  class="absolute right-2 bg-[#2EC4B6] text-white p-2 rounded-full hover:bg-[#2EC4B6]/90 transition-all duration-300 hover:scale-110 active:scale-95"
                 >
-                  <div class="flex items-center gap-4">
-                    <img 
-                      :src="result.image" 
-                      :alt="result.title"
-                      class="w-16 h-16 object-cover rounded-lg"
-                    />
-                    <div>
-                      <h3 class="font-medium text-[#4F7F8F] dark:text-[#C9F0EF]">{{ result.title }}</h3>
-                      <p class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">{{ result.category }}</p>
-                      <p class="text-[#2EC4B6] font-medium">{{ result.price }}</p>
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <!-- Enhanced Search Results Dropdown -->
+            <Transition
+              enter-active-class="transition duration-200 ease-out"
+              enter-from-class="transform scale-95 opacity-0"
+              enter-to-class="transform scale-100 opacity-100"
+              leave-active-class="transition duration-150 ease-in"
+              leave-from-class="transform scale-100 opacity-100"
+              leave-to-class="transform scale-95 opacity-0"
+            >
+              <div 
+                v-if="showSearchResults && searchResults.length > 0"
+                class="absolute w-full mt-4 bg-white dark:bg-[#4F7F8F] rounded-xl shadow-xl overflow-hidden z-[9999] backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95"
+              >
+                <div class="max-h-96 overflow-y-auto custom-scrollbar">
+                  <div 
+                    v-for="result in searchResults" 
+                    :key="result.id"
+                    @click="navigateToResult(result)"
+                    class="p-4 hover:bg-gray-50 dark:hover:bg-[#4F7F8F]/80 cursor-pointer transition-all duration-200 transform hover:translate-x-1"
+                  >
+                    <div class="flex items-center gap-4">
+                      <div class="relative w-16 h-16 rounded-lg overflow-hidden group">
+                        <img 
+                          :src="result.image" 
+                          :alt="result.title"
+                          class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                        />
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="font-medium text-[#4F7F8F] dark:text-[#C9F0EF] group-hover:text-[#2EC4B6] transition-colors duration-200">{{ result.title }}</h3>
+                        <p class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">{{ result.category }}</p>
+                        <p class="text-[#2EC4B6] font-medium">{{ result.price }}</p>
+                      </div>
+                      <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <svg class="w-5 h-5 text-[#2EC4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div class="p-4 bg-gray-50 dark:bg-[#4F7F8F]/50 border-t border-gray-100 dark:border-[#C9F0EF]/20">
+                  <p class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
+                    Press <kbd class="px-2 py-1 bg-white dark:bg-[#4F7F8F] rounded shadow-sm">Enter</kbd> to search
+                  </p>
+                </div>
               </div>
-            </div>
+            </Transition>
           </div>
         </div>
       </div>
@@ -251,10 +282,22 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const searchQuery = ref('')
 const showSearchResults = ref(false)
-const searchResults = ref([])
+
+interface SearchResult {
+  id: string
+  title: string
+  category: string
+  price: string
+  image: string
+  path: string
+}
+
+const searchResults = ref<SearchResult[]>([])
 
 // Popular Categories Data
 const popularCategories = [
