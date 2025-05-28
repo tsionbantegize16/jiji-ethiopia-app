@@ -2,7 +2,10 @@
   <div class="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-[#4F7F8F] dark:to-[#2EC4B6]">
     <!-- Hero Section -->
     <section class="relative py-20 overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6]/90 to-[#5EBFCA]/90"></div>
+      <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" alt="Ethiopian Market" class="w-full h-full object-cover object-center opacity-70" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#2EC4B6]/90 to-[#5EBFCA]/90 mix-blend-multiply"></div>
+      </div>
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
           <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
