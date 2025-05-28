@@ -1,132 +1,56 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Product Images -->
-      <div class="lg:col-span-2">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
-          <div class="relative aspect-square mb-4">
-            <img
-              :src="product.images[currentImageIndex]"
-              :alt="product.title"
-              class="w-full h-full object-cover rounded-lg"
-            />
-            <button
-              v-if="product.images.length > 1"
-              @click="previousImage"
-              class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 p-2 rounded-full hover:bg-white dark:hover:bg-gray-800"
-            >
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>
+  <div class="min-h-screen bg-gradient-to-b from-[#C9F0EF] to-[#4F7F8F] dark:from-[#4F7F8F] dark:to-[#22223B] py-10">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-start">
+        <!-- Image Carousel -->
+        <div>
+          <div class="relative rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-[#22223B]">
+            <img :src="product.images[currentImageIndex]" :alt="product.title" class="w-full h-96 object-cover transition-all duration-300" />
+            <button v-if="product.images.length > 1" @click="previousImage" class="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 dark:bg-[#4F7F8F]/80 rounded-full p-2 shadow hover:bg-[#2EC4B6] transition-colors">
+              <svg class="w-6 h-6 text-[#2EC4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
             </button>
-            <button
-              v-if="product.images.length > 1"
-              @click="nextImage"
-              class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 p-2 rounded-full hover:bg-white dark:hover:bg-gray-800"
-            >
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
+            <button v-if="product.images.length > 1" @click="nextImage" class="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 dark:bg-[#4F7F8F]/80 rounded-full p-2 shadow hover:bg-[#2EC4B6] transition-colors">
+              <svg class="w-6 h-6 text-[#2EC4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
             </button>
           </div>
-          
-          <div class="grid grid-cols-4 gap-2">
-            <button
-              v-for="(image, index) in product.images"
-              :key="index"
-              @click="currentImageIndex = index"
-              class="aspect-square rounded-lg overflow-hidden"
-              :class="{ 'ring-2 ring-primary-500': currentImageIndex === index }"
-            >
-              <img
-                :src="image"
-                :alt="`${product.title} - Image ${index + 1}`"
-                class="w-full h-full object-cover"
-              />
-            </button>
+          <div class="flex gap-2 mt-4 justify-center">
+            <img v-for="(img, idx) in product.images" :key="img" :src="img" :alt="product.title" @click="currentImageIndex = idx" :class="['w-16 h-16 object-cover rounded-lg cursor-pointer border-2 transition-all', currentImageIndex === idx ? 'border-[#2EC4B6] scale-105' : 'border-transparent opacity-70 hover:opacity-100']" />
           </div>
         </div>
-      </div>
-      
-      <!-- Product Info -->
-      <div class="space-y-6">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-            {{ product.title }}
-          </h1>
-          <p class="text-3xl font-bold text-primary-600 mb-4">
-            ETB {{ product.price.toLocaleString() }}
-          </p>
-          
-          <div class="space-y-4">
-            <div>
-              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Location</h3>
-              <p class="text-gray-900 dark:text-white">{{ product.location }}</p>
-            </div>
-            
-            <div>
-              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Category</h3>
-              <p class="text-gray-900 dark:text-white">{{ product.category }}</p>
-            </div>
-            
-            <div>
-              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Condition</h3>
-              <p class="text-gray-900 dark:text-white">{{ product.condition }}</p>
-            </div>
-            
-            <div>
-              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Description</h3>
-              <p class="text-gray-900 dark:text-white whitespace-pre-line">{{ product.description }}</p>
-            </div>
+        <!-- Product Details -->
+        <div class="bg-white dark:bg-[#22223B] rounded-2xl shadow-xl p-8 flex flex-col gap-6">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#2EC4B6]/10 text-[#2EC4B6]">{{ product.condition }}</span>
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#4F7F8F]/10 text-[#4F7F8F]">{{ product.category }}</span>
           </div>
-          
-          <div class="mt-6 space-y-4">
-            <button class="w-full btn btn-primary">
-              <svg class="w-5 h-5 mr-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-              Chat with Seller
+          <h1 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">{{ product.title }}</h1>
+          <div class="text-2xl font-bold text-[#2EC4B6] mb-2">ETB {{ product.price.toLocaleString() }}</div>
+          <div class="flex items-center gap-2 text-[#4F7F8F]/80 dark:text-[#C9F0EF]/80 mb-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            {{ product.location }}
+          </div>
+          <p class="text-lg text-[#4F7F8F]/80 dark:text-[#C9F0EF]/80 mb-4 whitespace-pre-line">{{ product.description }}</p>
+          <div class="flex items-center gap-4 mt-4">
+            <button class="px-6 py-3 bg-[#2EC4B6] text-white rounded-full font-bold hover:bg-[#4F7F8F] transition-colors duration-200 shadow">
+              Contact Seller
             </button>
-            
-            <button class="w-full btn btn-secondary">
-              <svg class="w-5 h-5 mr-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              Call Seller
+            <button @click="toggleFavorite" :class="['px-4 py-3 rounded-full font-bold transition-colors duration-200 shadow', isFavorite ? 'bg-[#2EC4B6] text-white' : 'bg-gray-100 dark:bg-[#4F7F8F]/30 text-[#2EC4B6] hover:bg-[#2EC4B6]/10']">
+              <svg v-if="isFavorite" class="w-6 h-6 inline" fill="#2EC4B6" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 19.071A7.5 7.5 0 0112 21.5a7.5 7.5 0 016.879-2.429C21.5 17.5 23 15.5 23 13.5c0-2.5-2-4.5-4.5-4.5-1.5 0-2.5 1-3.5 2-1-1-2-2-3.5-2C3 9 1 11 1 13.5c0 2 1.5 4 4.121 5.571z" /></svg>
+              <svg v-else class="w-6 h-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 19.071A7.5 7.5 0 0112 21.5a7.5 7.5 0 016.879-2.429C21.5 17.5 23 15.5 23 13.5c0-2.5-2-4.5-4.5-4.5-1.5 0-2.5 1-3.5 2-1-1-2-2-3.5-2C3 9 1 11 1 13.5c0 2 1.5 4 4.121 5.571z" /></svg>
             </button>
           </div>
-        </div>
-        
-        <!-- Seller Info -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Seller Information</h2>
-          
-          <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-              <span class="text-xl font-semibold text-gray-600 dark:text-gray-300">
-                {{ product.seller.name.charAt(0) }}
-              </span>
-            </div>
-            
+          <div class="flex items-center gap-4 mt-8 p-4 rounded-xl bg-gray-50 dark:bg-[#4F7F8F]/30">
+            <img :src="seller.avatar" :alt="seller.name" class="w-14 h-14 rounded-full object-cover border-2 border-[#2EC4B6]" />
             <div>
-              <h3 class="font-medium text-gray-900 dark:text-white">{{ product.seller.name }}</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Member since {{ product.seller.joinDate }}</p>
-            </div>
-          </div>
-          
-          <div class="mt-4 space-y-2">
-            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {{ product.seller.responseTime }}
-            </div>
-            
-            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {{ product.seller.rating }}% Positive Rating
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-[#4F7F8F] dark:text-[#C9F0EF]">{{ seller.name }}</span>
+                <svg v-if="seller.verified" class="w-5 h-5 text-[#2EC4B6]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+              </div>
+              <div class="flex items-center gap-1 text-sm text-yellow-500">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                <span>{{ seller.rating }}</span>
+              </div>
+              <div class="text-xs text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">Joined: {{ seller.joinDate }}</div>
             </div>
           </div>
         </div>
@@ -136,10 +60,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+
 const route = useRoute()
 const currentImageIndex = ref(0)
+const isFavorite = ref(false)
 
-// Mock data - replace with actual data from your backend
 const product = ref({
   id: route.params.id,
   title: 'iPhone 13 Pro Max',
@@ -149,24 +76,38 @@ const product = ref({
   condition: 'Like New',
   description: 'iPhone 13 Pro Max 256GB\nGraphite\nPerfect condition\nAll accessories included\nWarranty until December 2024',
   images: [
-    '/images/iphone-1.jpg',
-    '/images/iphone-2.jpg',
-    '/images/iphone-3.jpg',
-    '/images/iphone-4.jpg',
-  ],
-  seller: {
-    name: 'John Doe',
-    joinDate: 'January 2023',
-    responseTime: 'Usually responds within 1 hour',
-    rating: 98,
-  },
+    'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
+  ]
 })
 
-const previousImage = () => {
+const seller = ref({
+  name: 'John Doe',
+  avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+  joinDate: 'January 2023',
+  responseTime: 'Usually responds within 1 hour',
+  rating: 4.9,
+  verified: true
+})
+
+function previousImage() {
   currentImageIndex.value = (currentImageIndex.value - 1 + product.value.images.length) % product.value.images.length
 }
 
-const nextImage = () => {
+function nextImage() {
   currentImageIndex.value = (currentImageIndex.value + 1) % product.value.images.length
 }
-</script> 
+
+function toggleFavorite() {
+  isFavorite.value = !isFavorite.value
+}
+</script>
+
+<style scoped>
+/* Carousel arrow hover effect */
+button:focus {
+  outline: 2px solid #2EC4B6;
+}
+</style> 
