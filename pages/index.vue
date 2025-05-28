@@ -23,8 +23,10 @@
                   v-model="searchQuery"
                   @input="handleSearch"
                   @focus="showSearchResults = true"
+                  @keydown="onInputKeydown"
                   placeholder="Search for anything..." 
                   class="w-full px-6 py-4 pl-12 rounded-full bg-white/90 dark:bg-[#4F7F8F]/90 text-[#4F7F8F] dark:text-[#C9F0EF] placeholder-[#4F7F8F]/50 dark:placeholder-[#C9F0EF]/50 focus:outline-none focus:ring-2 focus:ring-[#2EC4B6] shadow-lg transition-all duration-300"
+                  ref="searchInputRef"
                 />
                 <div class="absolute left-4 text-[#4F7F8F] dark:text-[#C9F0EF]">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,10 +58,10 @@
               >
                 <div class="max-h-96 overflow-y-auto custom-scrollbar">
                   <div 
-                    v-for="result in searchResults" 
+                    v-for="(result, index) in searchResults" 
                     :key="result.id"
                     @click="navigateToResult(result)"
-                    class="p-4 hover:bg-gray-50 dark:hover:bg-[#4F7F8F]/80 cursor-pointer transition-all duration-200 transform hover:translate-x-1"
+                    :class="{'bg-gray-50 dark:bg-[#4F7F8F]/80 cursor-pointer transition-all duration-200 transform hover:translate-x-1': highlightedIndex === index}"
                   >
                     <div class="flex items-center gap-4">
                       <div class="relative w-16 h-16 rounded-lg overflow-hidden group">
@@ -282,12 +284,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const searchQuery = ref('')
 const showSearchResults = ref(false)
+const isLoading = ref(false)
+const selectedCategory = ref('')
+const selectedLocation = ref('')
+const highlightedIndex = ref(-1)
+const searchInputRef = ref<HTMLInputElement | null>(null)
 
 // Click-outside handler for dropdown
 function handleClickOutside(event: MouseEvent) {
@@ -295,6 +302,7 @@ function handleClickOutside(event: MouseEvent) {
   const input = document.getElementById('search-input')
   if (dropdown && !dropdown.contains(event.target as Node) && input && !input.contains(event.target as Node)) {
     showSearchResults.value = false
+    highlightedIndex.value = -1
   }
 }
 onMounted(() => {
@@ -311,6 +319,7 @@ interface SearchResult {
   price: number
   image: string
   path: string
+  location?: string
 }
 
 const searchResults = ref<SearchResult[]>([])
@@ -500,7 +509,8 @@ const allProducts = [
     category: 'Phones',
     price: 45000,
     image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?auto=format&fit=crop&w=500&q=60',
-    path: '/category/phones'
+    path: '/category/phones',
+    location: 'Addis Ababa'
   },
   {
     id: 'vehicle-1',
@@ -508,7 +518,8 @@ const allProducts = [
     category: 'Vehicles',
     price: 2500000,
     image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=60',
-    path: '/category/vehicles'
+    path: '/category/vehicles',
+    location: 'Dire Dawa'
   },
   {
     id: 'electronics-1',
@@ -516,7 +527,8 @@ const allProducts = [
     category: 'Electronics',
     price: 35000,
     image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=500&q=60',
-    path: '/category/electronics'
+    path: '/category/electronics',
+    location: 'Hawassa'
   },
   {
     id: 'electronics-2',
@@ -524,7 +536,8 @@ const allProducts = [
     category: 'Electronics',
     price: 85000,
     image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=60',
-    path: '/category/electronics'
+    path: '/category/electronics',
+    location: 'Addis Ababa'
   },
   {
     id: 'home-1',
@@ -532,7 +545,8 @@ const allProducts = [
     category: 'Home & Garden',
     price: 45000,
     image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
-    path: '/category/home-garden'
+    path: '/category/home-garden',
+    location: 'Bahir Dar'
   },
   {
     id: 'home-2',
@@ -540,7 +554,8 @@ const allProducts = [
     category: 'Home & Garden',
     price: 5000,
     image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=60',
-    path: '/category/home-garden'
+    path: '/category/home-garden',
+    location: 'Bahir Dar'
   },
   {
     id: 'sports-1',
@@ -548,26 +563,62 @@ const allProducts = [
     category: 'Sports',
     price: 8500,
     image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60',
-    path: '/category/sports'
+    path: '/category/sports',
+    location: 'Mekelle'
   }
 ]
 
-function handleSearch() {
+async function handleSearch() {
+  isLoading.value = true
+  await new Promise(resolve => setTimeout(resolve, 400)) // Simulate async
   if (!searchQuery.value) {
     searchResults.value = []
+    isLoading.value = false
     return
   }
   const query = searchQuery.value.toLowerCase()
-  searchResults.value = allProducts.filter(product =>
-    product.title.toLowerCase().includes(query) ||
-    product.category.toLowerCase().includes(query)
-  )
+  searchResults.value = allProducts.filter(product => {
+    const matchesQuery = product.title.toLowerCase().includes(query) || product.category.toLowerCase().includes(query)
+    const matchesCategory = !selectedCategory.value || product.category === selectedCategory.value
+    const matchesLocation = !selectedLocation.value || (product.location && product.location === selectedLocation.value)
+    return matchesQuery && matchesCategory && matchesLocation
+  })
+  isLoading.value = false
+  highlightedIndex.value = -1
 }
 
 function navigateToResult(result: SearchResult) {
   router.push(result.path)
   showSearchResults.value = false
+  highlightedIndex.value = -1
 }
+
+function onInputKeydown(e: KeyboardEvent) {
+  if (!showSearchResults.value || searchResults.value.length === 0) return
+  if (e.key === 'ArrowDown') {
+    highlightedIndex.value = (highlightedIndex.value + 1) % searchResults.value.length
+    e.preventDefault()
+  } else if (e.key === 'ArrowUp') {
+    highlightedIndex.value = (highlightedIndex.value - 1 + searchResults.value.length) % searchResults.value.length
+    e.preventDefault()
+  } else if (e.key === 'Enter') {
+    if (highlightedIndex.value >= 0 && highlightedIndex.value < searchResults.value.length) {
+      navigateToResult(searchResults.value[highlightedIndex.value])
+    }
+  } else if (e.key === 'Escape') {
+    showSearchResults.value = false
+    highlightedIndex.value = -1
+  }
+}
+
+onMounted(() => {
+  nextTick(() => {
+    if (searchInputRef.value) {
+      searchInputRef.value.setAttribute('aria-autocomplete', 'list')
+      searchInputRef.value.setAttribute('aria-controls', 'search-dropdown')
+    }
+  })
+})
 </script>
 
 <style scoped>
