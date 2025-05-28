@@ -16,9 +16,41 @@
           <div class="flex gap-2 mt-4 justify-center">
             <img v-for="(img, idx) in product.images" :key="img" :src="img" :alt="product.title" @click="currentImageIndex = idx" :class="['w-16 h-16 object-cover rounded-lg cursor-pointer border-2 transition-all', currentImageIndex === idx ? 'border-[#2EC4B6] scale-105' : 'border-transparent opacity-70 hover:opacity-100']" />
           </div>
+          <!-- Product Details/Specs -->
+          <div class="mt-8 bg-white dark:bg-[#22223B] rounded-2xl shadow p-6">
+            <h2 class="text-xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-4">Product Details</h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[#4F7F8F] dark:text-[#C9F0EF] text-base">
+              <li><span class="font-semibold">Storage:</span> {{ product.specs.storage }}</li>
+              <li><span class="font-semibold">Color:</span> {{ product.specs.color }}</li>
+              <li><span class="font-semibold">Warranty:</span> {{ product.specs.warranty }}</li>
+              <li><span class="font-semibold">Year:</span> {{ product.specs.year }}</li>
+            </ul>
+          </div>
+          <!-- Reviews -->
+          <div class="mt-8 bg-white dark:bg-[#22223B] rounded-2xl shadow p-6">
+            <h2 class="text-xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-4">Customer Reviews</h2>
+            <div v-if="reviews.length > 0" class="space-y-6">
+              <div v-for="review in reviews" :key="review.id" class="flex gap-4 items-start">
+                <img :src="review.avatar" :alt="review.name" class="w-12 h-12 rounded-full object-cover border-2 border-[#2EC4B6]" />
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-bold text-[#4F7F8F] dark:text-[#C9F0EF]">{{ review.name }}</span>
+                    <span class="text-xs text-[#2EC4B6]">{{ review.date }}</span>
+                  </div>
+                  <div class="flex items-center gap-1 text-yellow-500 mb-1">
+                    <svg v-for="n in 5" :key="n" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path :class="{'opacity-30': n > review.rating}" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                  <p class="text-[#4F7F8F]/80 dark:text-[#C9F0EF]/80">{{ review.comment }}</p>
+                </div>
+              </div>
+            </div>
+            <div v-else class="text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">No reviews yet.</div>
+          </div>
         </div>
-        <!-- Product Details -->
-        <div class="bg-white dark:bg-[#22223B] rounded-2xl shadow-xl p-8 flex flex-col gap-6">
+        <!-- Sticky Sidebar Product Actions -->
+        <div class="bg-white dark:bg-[#22223B] rounded-2xl shadow-xl p-8 flex flex-col gap-6 md:sticky md:top-24">
           <div class="flex items-center gap-3 mb-2">
             <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#2EC4B6]/10 text-[#2EC4B6]">{{ product.condition }}</span>
             <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#4F7F8F]/10 text-[#4F7F8F]">{{ product.category }}</span>
@@ -80,7 +112,13 @@ const product = ref({
     'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
     'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80',
     'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
-  ]
+  ],
+  specs: {
+    storage: '256GB',
+    color: 'Graphite',
+    warranty: 'Until December 2024',
+    year: 2022
+  }
 })
 
 const seller = ref({
@@ -91,6 +129,25 @@ const seller = ref({
   rating: 4.9,
   verified: true
 })
+
+const reviews = ref([
+  {
+    id: 1,
+    name: 'Amanuel T.',
+    avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
+    rating: 5,
+    date: '2 days ago',
+    comment: 'Great seller! The phone was exactly as described and the transaction was smooth.'
+  },
+  {
+    id: 2,
+    name: 'Sara M.',
+    avatar: 'https://randomuser.me/api/portraits/women/65.jpg',
+    rating: 4,
+    date: '1 week ago',
+    comment: 'Good communication and fast delivery. Would buy again.'
+  }
+])
 
 function previousImage() {
   currentImageIndex.value = (currentImageIndex.value - 1 + product.value.images.length) % product.value.images.length
