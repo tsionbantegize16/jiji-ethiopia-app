@@ -99,7 +99,7 @@
 
     <!-- Popular Categories -->
     <section class="py-16 bg-white dark:bg-[#4F7F8F]">
-      <div class="container mx-auto px-4">
+      <div class="container mx-auto px-4 z-999">
         <h2 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-8 text-center">
           Popular Categories
         </h2>

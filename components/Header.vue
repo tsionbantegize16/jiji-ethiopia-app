@@ -53,7 +53,9 @@
                     class="flex items-center px-3 py-2 text-sm text-[#4F7F8F] dark:text-[#C9F0EF] hover:bg-[#C9F0EF]/30 dark:hover:bg-[#2EC4B6]/20 rounded-md transition-colors duration-200"
                     @click="isCategoriesOpen = false"
                   >
-                    <component :is="category.icon" class="w-5 h-5 mr-3" />
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="category.iconPath" />
+                    </svg>
                     {{ category.name }}
                   </NuxtLink>
                 </div>
@@ -168,32 +170,38 @@ const popularCategories = [
   {
     name: 'Phones & Tablets',
     path: '/category/phones',
-    icon: 'PhoneIcon'
+    icon: 'svg',
+    iconPath: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z'
   },
   {
     name: 'Vehicles',
     path: '/category/vehicles',
-    icon: 'CarIcon'
+    icon: 'svg',
+    iconPath: 'M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0'
   },
   {
     name: 'Electronics',
     path: '/category/electronics',
-    icon: 'DeviceIcon'
+    icon: 'svg',
+    iconPath: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
   },
   {
     name: 'Home & Garden',
     path: '/category/home-garden',
-    icon: 'HomeIcon'
+    icon: 'svg',
+    iconPath: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'
   },
   {
     name: 'Fashion',
     path: '/category/fashion',
-    icon: 'ClothesIcon'
+    icon: 'svg',
+    iconPath: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z'
   },
   {
     name: 'Sports',
     path: '/category/sports',
-    icon: 'SportsIcon'
+    icon: 'svg',
+    iconPath: 'M13 10V3L4 14h7v7l9-11h-7z'
   }
 ]
 

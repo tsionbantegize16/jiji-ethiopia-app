@@ -4,26 +4,65 @@
       <div class="grid md:grid-cols-2 gap-12 items-start">
         <!-- Image Carousel -->
         <div>
-          <div class="relative rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-[#22223B]">
-            <img :src="product.images[currentImageIndex]" :alt="product.title" class="w-full h-96 object-cover transition-all duration-300" />
-            <button v-if="product.images.length > 1" @click="previousImage" class="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 dark:bg-[#4F7F8F]/80 rounded-full p-2 shadow hover:bg-[#2EC4B6] transition-colors">
-              <svg class="w-6 h-6 text-[#2EC4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+          <div class="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+            <img :src="product.images[currentImageIndex]" :alt="product.title" class="w-full h-full object-cover" />
+            <button v-if="currentImageIndex > 0" @click="currentImageIndex--" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
             </button>
-            <button v-if="product.images.length > 1" @click="nextImage" class="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 dark:bg-[#4F7F8F]/80 rounded-full p-2 shadow hover:bg-[#2EC4B6] transition-colors">
-              <svg class="w-6 h-6 text-[#2EC4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            <button v-if="currentImageIndex < product.images.length - 1" @click="currentImageIndex++" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
-          <div class="flex gap-2 mt-4 justify-center">
-            <img v-for="(img, idx) in product.images" :key="img" :src="img" :alt="product.title" @click="currentImageIndex = idx" :class="['w-16 h-16 object-cover rounded-lg cursor-pointer border-2 transition-all', currentImageIndex === idx ? 'border-[#2EC4B6] scale-105' : 'border-transparent opacity-70 hover:opacity-100']" />
+          <div class="grid grid-cols-4 gap-4 mt-4">
+            <button v-for="(image, index) in product.images" :key="index" @click="currentImageIndex = index" class="aspect-square rounded-lg overflow-hidden bg-gray-100" :class="{ 'ring-2 ring-blue-500': currentImageIndex === index }">
+              <img :src="image" :alt="`${product.title} - Image ${index + 1}`" class="w-full h-full object-cover" />
+            </button>
           </div>
           <!-- Product Details/Specs -->
           <div class="mt-8 bg-white dark:bg-[#22223B] rounded-2xl shadow p-6">
             <h2 class="text-xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-4">Product Details</h2>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[#4F7F8F] dark:text-[#C9F0EF] text-base">
-              <li><span class="font-semibold">Storage:</span> {{ product.specs.storage }}</li>
-              <li><span class="font-semibold">Color:</span> {{ product.specs.color }}</li>
-              <li><span class="font-semibold">Warranty:</span> {{ product.specs.warranty }}</li>
-              <li><span class="font-semibold">Year:</span> {{ product.specs.year }}</li>
+            <ul class="grid grid-cols-2 gap-4 text-[#4F7F8F] dark:text-[#C9F0EF] text-base">
+              <template v-if="product.category === 'Vehicles'">
+                <li><span class="font-semibold">Year:</span> {{ (product.specs as VehicleSpecs).year }}</li>
+                <li><span class="font-semibold">Mileage:</span> {{ (product.specs as VehicleSpecs).mileage }}</li>
+                <li><span class="font-semibold">Transmission:</span> {{ (product.specs as VehicleSpecs).transmission }}</li>
+                <li><span class="font-semibold">Fuel Type:</span> {{ (product.specs as VehicleSpecs).fuelType }}</li>
+                <li><span class="font-semibold">Color:</span> {{ (product.specs as VehicleSpecs).color }}</li>
+              </template>
+              <template v-else-if="product.category === 'Phones'">
+                <li><span class="font-semibold">Storage:</span> {{ (product.specs as PhoneSpecs).storage }}</li>
+                <li><span class="font-semibold">Color:</span> {{ (product.specs as PhoneSpecs).color }}</li>
+                <li><span class="font-semibold">Warranty:</span> {{ (product.specs as PhoneSpecs).warranty }}</li>
+                <li><span class="font-semibold">Year:</span> {{ (product.specs as PhoneSpecs).year }}</li>
+              </template>
+              <template v-else-if="product.category === 'Electronics'">
+                <li><span class="font-semibold">Screen:</span> {{ (product.specs as ElectronicsSpecs).screen }}</li>
+                <li><span class="font-semibold">Processor:</span> {{ (product.specs as ElectronicsSpecs).processor }}</li>
+                <li><span class="font-semibold">Warranty:</span> {{ (product.specs as ElectronicsSpecs).warranty }}</li>
+                <li><span class="font-semibold">Year:</span> {{ (product.specs as ElectronicsSpecs).year }}</li>
+              </template>
+              <template v-else-if="product.category === 'Fashion'">
+                <li><span class="font-semibold">Size:</span> {{ (product.specs as FashionSpecs).size }}</li>
+                <li><span class="font-semibold">Color:</span> {{ (product.specs as FashionSpecs).color }}</li>
+                <li><span class="font-semibold">Material:</span> {{ (product.specs as FashionSpecs).material }}</li>
+                <li><span class="font-semibold">Condition:</span> {{ (product.specs as FashionSpecs).condition }}</li>
+              </template>
+              <template v-else-if="product.category === 'Home & Garden'">
+                <li><span class="font-semibold">Material:</span> {{ (product.specs as HomeGardenSpecs).material }}</li>
+                <li><span class="font-semibold">Pieces:</span> {{ (product.specs as HomeGardenSpecs).pieces }}</li>
+                <li><span class="font-semibold">Color:</span> {{ (product.specs as HomeGardenSpecs).color }}</li>
+                <li><span class="font-semibold">Warranty:</span> {{ (product.specs as HomeGardenSpecs).warranty }}</li>
+              </template>
+              <template v-else-if="product.category === 'Sports'">
+                <li><span class="font-semibold">Motor:</span> {{ (product.specs as SportsSpecs).motor }}</li>
+                <li><span class="font-semibold">Programs:</span> {{ (product.specs as SportsSpecs).programs }}</li>
+                <li><span class="font-semibold">Features:</span> {{ (product.specs as SportsSpecs).features }}</li>
+                <li><span class="font-semibold">Warranty:</span> {{ (product.specs as SportsSpecs).warranty }}</li>
+              </template>
             </ul>
           </div>
           <!-- Reviews -->
@@ -56,7 +95,7 @@
             <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#4F7F8F]/10 text-[#4F7F8F]">{{ product.category }}</span>
           </div>
           <h1 class="text-3xl font-bold text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">{{ product.title }}</h1>
-          <div class="text-2xl font-bold text-[#2EC4B6] mb-2">ETB {{ product.price.toLocaleString() }}</div>
+          <div class="text-2xl font-bold text-[#2EC4B6] mb-2">{{ formattedPrice }}</div>
           <div class="flex items-center gap-2 text-[#4F7F8F]/80 dark:text-[#C9F0EF]/80 mb-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             {{ product.location }}
@@ -92,33 +131,202 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const currentImageIndex = ref(0)
 const isFavorite = ref(false)
 
-const product = ref({
-  id: route.params.id,
-  title: 'iPhone 13 Pro Max',
-  price: 85000,
-  location: 'Addis Ababa',
-  category: 'Phones',
-  condition: 'Like New',
-  description: 'iPhone 13 Pro Max 256GB\nGraphite\nPerfect condition\nAll accessories included\nWarranty until December 2024',
-  images: [
-    'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
-  ],
-  specs: {
-    storage: '256GB',
-    color: 'Graphite',
-    warranty: 'Until December 2024',
-    year: 2022
+// Type definitions for product specs
+interface VehicleSpecs {
+  year: string
+  mileage: string
+  transmission: string
+  fuelType: string
+  color: string
+}
+
+interface PhoneSpecs {
+  storage: string
+  color: string
+  warranty: string
+  year: string
+}
+
+interface ElectronicsSpecs {
+  screen: string
+  processor: string
+  warranty: string
+  year: string
+}
+
+interface FashionSpecs {
+  size: string
+  color: string
+  material: string
+  condition: string
+}
+
+interface HomeGardenSpecs {
+  material: string
+  pieces: string
+  color: string
+  warranty: string
+}
+
+interface SportsSpecs {
+  motor: string
+  programs: string
+  features: string
+  warranty: string
+}
+
+type ProductSpecs = VehicleSpecs | PhoneSpecs | ElectronicsSpecs | FashionSpecs | HomeGardenSpecs | SportsSpecs
+
+interface Product {
+  id: number
+  title: string
+  price: number
+  location: string
+  category: string
+  condition: string
+  description: string
+  images: string[]
+  specs: ProductSpecs
+}
+
+// Get product data based on category and ID
+const product = computed<Product>(() => {
+  const category = route.query.category as string
+  const id = parseInt(route.params.id as string)
+  
+  // Sample product data based on category
+  const products: Record<string, Product> = {
+    vehicles: {
+      id: 1,
+      title: 'Toyota Land Cruiser 2020',
+      price: 2500000,
+      location: 'Addis Ababa',
+      category: 'Vehicles',
+      condition: 'Like New',
+      description: 'Toyota Land Cruiser 2020\nDiesel Engine\nAutomatic Transmission\n45,000 km\nFull Service History\nAll documents available',
+      images: [
+        'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80',
+      ],
+      specs: {
+        year: '2020',
+        mileage: '45,000 km',
+        transmission: 'Automatic',
+        fuelType: 'Diesel',
+        color: 'White'
+      }
+    },
+    phones: {
+      id: 2,
+      title: 'iPhone 14 Pro Max',
+      price: 120000,
+      location: 'Dire Dawa',
+      category: 'Phones',
+      condition: 'New',
+      description: 'iPhone 14 Pro Max 256GB\nDeep Purple\nSealed Box\nFull Warranty\nAll accessories included',
+      images: [
+        'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1591337676887-a217a6970a8a?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80',
+      ],
+      specs: {
+        storage: '256GB',
+        color: 'Deep Purple',
+        warranty: '1 Year',
+        year: '2023'
+      }
+    },
+    electronics: {
+      id: 3,
+      title: 'Sony 65" 4K Smart TV',
+      price: 85000,
+      location: 'Hawassa',
+      category: 'Electronics',
+      condition: 'Like New',
+      description: 'Sony X90K 65" 4K Smart TV\nCognitive Processor XR\nFull Array LED\nDolby Vision & Atmos\n2 Years Warranty',
+      images: [
+        'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=800&q=80',
+      ],
+      specs: {
+        screen: '65" 4K HDR',
+        processor: 'Cognitive Processor XR',
+        warranty: '2 Years',
+        year: '2023'
+      }
+    },
+    fashion: {
+      id: 4,
+      title: 'Nike Air Max 270',
+      price: 8500,
+      location: 'Mekelle',
+      category: 'Fashion',
+      condition: 'New',
+      description: 'Nike Air Max 270\nSize: EU 42-46\nColor: Black/White\nOriginal Box\nNever Worn',
+      images: [
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=800&q=80',
+      ],
+      specs: {
+        size: 'EU 42-46',
+        color: 'Black/White',
+        material: 'Mesh & Leather',
+        condition: 'New'
+      }
+    },
+    'home-garden': {
+      id: 5,
+      title: 'Modern Sofa Set',
+      price: 45000,
+      location: 'Bahir Dar',
+      category: 'Home & Garden',
+      condition: 'New',
+      description: 'Modern 3-Piece Sofa Set\nPremium Fabric\nComfortable Cushions\nEasy to Clean\nFree Delivery',
+      images: [
+        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
+      ],
+      specs: {
+        material: 'Premium Fabric',
+        pieces: '3-Piece Set',
+        color: 'Gray',
+        warranty: '1 Year'
+      }
+    },
+    sports: {
+      id: 6,
+      title: 'Life Fitness Treadmill',
+      price: 85000,
+      location: 'Addis Ababa',
+      category: 'Sports',
+      condition: 'New',
+      description: 'Life Fitness Treadmill\n2.5HP Motor\n12 Programs\nHeart Rate Monitor\n2 Years Warranty',
+      images: [
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80',
+      ],
+      specs: {
+        motor: '2.5HP',
+        programs: '12',
+        features: 'Heart Rate Monitor',
+        warranty: '2 Years'
+      }
+    }
   }
+
+  return products[category as keyof typeof products] || products.phones
 })
 
 const seller = ref({
@@ -127,7 +335,9 @@ const seller = ref({
   joinDate: 'January 2023',
   responseTime: 'Usually responds within 1 hour',
   rating: 4.9,
-  verified: true
+  verified: true,
+  listings: 15,
+  memberSince: '2023'
 })
 
 const reviews = ref([
@@ -137,7 +347,7 @@ const reviews = ref([
     avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
     rating: 5,
     date: '2 days ago',
-    comment: 'Great seller! The phone was exactly as described and the transaction was smooth.'
+    comment: 'Great seller! The product was exactly as described and the transaction was smooth.'
   },
   {
     id: 2,
@@ -149,17 +359,14 @@ const reviews = ref([
   }
 ])
 
-function previousImage() {
-  currentImageIndex.value = (currentImageIndex.value - 1 + product.value.images.length) % product.value.images.length
-}
-
-function nextImage() {
-  currentImageIndex.value = (currentImageIndex.value + 1) % product.value.images.length
-}
-
 function toggleFavorite() {
   isFavorite.value = !isFavorite.value
 }
+
+// Format price with Ethiopian Birr
+const formattedPrice = computed(() => {
+  return `ETB ${product.value.price.toLocaleString()}`
+})
 </script>
 
 <style scoped>
