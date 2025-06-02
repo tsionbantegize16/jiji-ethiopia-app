@@ -25,7 +25,7 @@
       <!-- Hero Section -->
       <div class="bg-gradient-to-r from-[#2EC4B6] to-[#4F7F8F] rounded-xl shadow-lg p-8 mb-8 text-white">
         <h1 class="text-4xl font-bold mb-4">Phones & Tablets in Ethiopia</h1>
-        <p class="text-lg opacity-90">Find the latest smartphones and tablets from top brands at great prices</p>
+        <p class="text-lg opacity-90">Discover the latest smartphones and tablets from top brands at competitive prices</p>
       </div>
 
       <!-- Quick Stats -->
