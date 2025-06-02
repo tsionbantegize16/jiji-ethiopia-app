@@ -15,7 +15,7 @@
                 <svg class="w-6 h-6 text-[#4F7F8F] dark:text-[#C9F0EF]" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                 </svg>
-                <NuxtLink :to="`/category/${category}`" class="ml-1 text-[#4F7F8F] dark:text-[#C9F0EF] hover:text-[#2EC4B6]">
+                <NuxtLink :to="`/category/${currentCategory}`" class="ml-1 text-[#4F7F8F] dark:text-[#C9F0EF] hover:text-[#2EC4B6]">
                   {{ categoryName }}
                 </NuxtLink>
               </div>
@@ -232,7 +232,7 @@
             :key="item.id"
             class="bg-white dark:bg-[#4F7F8F] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200"
           >
-            <NuxtLink :to="`/category/${category}/${item.id}`">
+            <NuxtLink :to="`/category/${currentCategory}/${item.id}`">
               <div class="relative">
                 <img 
                   :src="item.image" 
@@ -275,8 +275,8 @@ const router = useRouter()
 const currentImage = ref('')
 
 // Get the category and listing ID from the route
-const category = computed(() => route.params.category)
-const listingId = computed(() => route.params.id)
+const currentCategory = computed(() => route.params.category as string)
+const listingId = computed(() => route.params.id as string)
 
 // Map category slugs to display names
 const categoryNames = {
@@ -286,25 +286,27 @@ const categoryNames = {
   'home-garden': 'Home & Garden',
   'fashion': 'Fashion',
   'sports': 'Sports'
-}
+} as const
 
-const categoryName = computed(() => categoryNames[category.value as keyof typeof categoryNames] || category.value)
+type CategoryKey = keyof typeof categoryNames
+
+const categoryName = computed(() => categoryNames[currentCategory.value as CategoryKey] || currentCategory.value)
 
 // Mock data - Replace with actual API call
 const listing = ref({
   id: listingId.value,
-  title: 'Sample Listing',
-  price: 'ETB 45,000',
+  title: getCategoryTitle(currentCategory.value),
+  price: getCategoryPrice(currentCategory.value),
   isNegotiable: true,
   location: 'Addis Ababa',
   postedTime: '2 hours ago',
   views: 245,
   favorites: 12,
-  category: category.value,
-  mainImage: getCategoryImage(category.value),
-  images: getCategoryImages(category.value),
-  description: getCategoryDescription(category.value),
-  specifications: getCategorySpecifications(category.value),
+  category: currentCategory.value,
+  mainImage: getCategoryImage(currentCategory.value),
+  images: getCategoryImages(currentCategory.value),
+  description: getCategoryDescription(currentCategory.value),
+  specifications: getCategorySpecifications(currentCategory.value),
   seller: {
     name: 'John Doe',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=60',
@@ -315,13 +317,35 @@ const listing = ref({
 })
 
 // Helper functions to get category-specific data
+function getCategoryTitle(category: string) {
+  const titles = {
+    'electronics': 'Samsung Galaxy S21 Ultra 5G',
+    'fashion': 'Nike Air Max 2023',
+    'home-garden': 'Modern Leather Sofa Set',
+    'sports': 'Professional Football Kit',
+    'vehicles': 'Toyota Land Cruiser 2023'
+  }
+  return titles[category as keyof typeof titles] || 'Sample Listing'
+}
+
+function getCategoryPrice(category: string) {
+  const prices = {
+    'electronics': 'ETB 45,000',
+    'fashion': 'ETB 12,000',
+    'home-garden': 'ETB 85,000',
+    'sports': 'ETB 8,500',
+    'vehicles': 'ETB 2,500,000'
+  }
+  return prices[category as keyof typeof prices] || 'ETB 45,000'
+}
+
 function getCategoryImage(category: string) {
   const images = {
-    'electronics': 'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=500&q=60',
-    'fashion': 'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=500&q=60',
+    'electronics': 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=60',
+    'fashion': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60',
     'home-garden': 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
     'sports': 'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=60',
-    'vehicles': 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=60'
+    'vehicles': 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=500&q=60'
   }
   return images[category as keyof typeof images] || '/images/sample.jpg'
 }
@@ -329,34 +353,34 @@ function getCategoryImage(category: string) {
 function getCategoryImages(category: string) {
   const images = {
     'electronics': [
-      'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=500&q=60'
+      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=60'
     ],
     'fashion': [
-      'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=500&q=60'
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60'
     ],
     'home-garden': [
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=500&q=60'
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60'
     ],
     'sports': [
       'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1546519638-68e109acd27b?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60'
+      'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=60'
     ],
     'vehicles': [
-      'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=500&q=60',
-      'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=500&q=60'
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=500&q=60'
     ]
   }
   return images[category as keyof typeof images] || ['/images/sample.jpg']
@@ -364,26 +388,39 @@ function getCategoryImages(category: string) {
 
 function getCategoryDescription(category: string) {
   const descriptions = {
-    'electronics': `High-quality electronics item in excellent condition.
-Perfect for everyday use.
-Comes with original accessories and warranty.
-Tested and verified by our team.`,
-    'fashion': `Stylish and trendy fashion item.
-Made with premium materials.
-Perfect fit and comfortable to wear.
-Suitable for various occasions.`,
-    'home-garden': `Beautiful home and garden item.
-Enhances your living space.
-Durable and long-lasting.
-Easy to maintain and clean.`,
-    'sports': `Professional-grade sports equipment.
-Perfect for training and competitions.
-Well-maintained and in great condition.
-Suitable for all skill levels.`,
-    'vehicles': `Well-maintained vehicle in excellent condition.
-Regular service history available.
-Fuel efficient and reliable.
-Perfect for family use.`
+    'electronics': `Samsung Galaxy S21 Ultra 5G in pristine condition.
+Latest Android version installed.
+Comes with original charger, case, and warranty card.
+Battery health at 95%.
+No scratches or dents.
+Perfect for photography and gaming.`,
+    'fashion': `Nike Air Max 2023 - Limited Edition.
+Size: US 10 (EU 44).
+Color: Black/Red.
+Never worn, brand new in box.
+Original price tag attached.
+Perfect for running and casual wear.`,
+    'home-garden': `Modern Leather Sofa Set - 3+2+1.
+Premium Italian leather.
+Color: Brown.
+Dimensions: 280x180x85 cm.
+Includes matching cushions.
+Perfect for living room.
+Easy to maintain.`,
+    'sports': `Professional Football Kit - Complete Set.
+Size: XL.
+Brand: Adidas.
+Includes jersey, shorts, socks, and shin guards.
+Used only twice.
+Perfect condition.
+Suitable for professional matches.`,
+    'vehicles': `Toyota Land Cruiser 2023 - V8 Diesel.
+Mileage: 15,000 km.
+Automatic transmission.
+Color: White.
+Full service history.
+All original parts.
+Perfect for family and off-road.`
   }
   return descriptions[category as keyof typeof descriptions] || 'Sample description'
 }
@@ -391,34 +428,45 @@ Perfect for family use.`
 function getCategorySpecifications(category: string) {
   const specs = {
     'electronics': {
-      'Condition': 'New',
+      'Condition': 'Like New',
       'Brand': 'Samsung',
-      'Model': 'Galaxy S21',
-      'Warranty': '1 Year'
+      'Model': 'Galaxy S21 Ultra 5G',
+      'Storage': '256GB',
+      'Color': 'Phantom Black',
+      'Warranty': '1 Year Remaining'
     },
     'fashion': {
-      'Size': 'Medium',
-      'Color': 'Blue',
-      'Material': 'Cotton',
-      'Brand': 'Nike'
+      'Size': 'US 10 (EU 44)',
+      'Color': 'Black/Red',
+      'Material': 'Mesh & Leather',
+      'Brand': 'Nike',
+      'Condition': 'New',
+      'Style': 'Running'
     },
     'home-garden': {
-      'Material': 'Wood',
-      'Dimensions': '200x80x75 cm',
-      'Color': 'Natural',
-      'Style': 'Modern'
+      'Material': 'Italian Leather',
+      'Dimensions': '280x180x85 cm',
+      'Color': 'Brown',
+      'Style': 'Modern',
+      'Condition': 'New',
+      'Warranty': '2 Years'
     },
     'sports': {
       'Type': 'Professional',
-      'Size': 'Standard',
-      'Material': 'Synthetic',
-      'Brand': 'Adidas'
+      'Size': 'XL',
+      'Material': 'Polyester',
+      'Brand': 'Adidas',
+      'Condition': 'Like New',
+      'Set Includes': 'Jersey, Shorts, Socks, Shin Guards'
     },
     'vehicles': {
       'Year': '2023',
       'Mileage': '15,000 km',
       'Transmission': 'Automatic',
-      'Fuel Type': 'Petrol'
+      'Fuel Type': 'Diesel',
+      'Engine': 'V8',
+      'Color': 'White',
+      'Condition': 'Excellent'
     }
   }
   return specs[category as keyof typeof specs] || {
@@ -438,34 +486,34 @@ onMounted(() => {
 const relatedListings = ref([
   {
     id: 2,
-    title: 'Related Item 1',
-    price: 'ETB 38,000',
+    title: getCategoryTitle(currentCategory.value),
+    price: getCategoryPrice(currentCategory.value),
     location: 'Addis Ababa',
-    image: getCategoryImage(category.value),
+    image: getCategoryImage(currentCategory.value),
     isNew: false
   },
   {
     id: 3,
-    title: 'Related Item 2',
-    price: 'ETB 35,000',
+    title: getCategoryTitle(currentCategory.value),
+    price: getCategoryPrice(currentCategory.value),
     location: 'Dire Dawa',
-    image: getCategoryImage(category.value),
+    image: getCategoryImage(currentCategory.value),
     isNew: true
   },
   {
     id: 4,
-    title: 'Related Item 3',
-    price: 'ETB 32,000',
+    title: getCategoryTitle(currentCategory.value),
+    price: getCategoryPrice(currentCategory.value),
     location: 'Hawassa',
-    image: getCategoryImage(category.value),
+    image: getCategoryImage(currentCategory.value),
     isNew: false
   },
   {
     id: 5,
-    title: 'Related Item 4',
-    price: 'ETB 28,000',
+    title: getCategoryTitle(currentCategory.value),
+    price: getCategoryPrice(currentCategory.value),
     location: 'Addis Ababa',
-    image: getCategoryImage(category.value),
+    image: getCategoryImage(currentCategory.value),
     isNew: false
   }
 ])
