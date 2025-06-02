@@ -210,74 +210,130 @@ const fashionItems = ref([
   {
     id: 1,
     title: 'Traditional Habesha Kemis',
-    price: 'ETB 2,500',
+    price: 'ETB 3,500',
     location: 'Addis Ababa',
     postedTime: '2 hours ago',
-    image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=500&q=80',
+    brand: 'Ethio Fashion',
+    specs: {
+      material: 'Cotton',
+      size: 'Medium',
+      color: 'White',
+      condition: 'New'
+    }
   },
   {
     id: 2,
-    title: 'Men\'s Suit Set',
-    price: 'ETB 4,500',
+    title: 'Men\'s Suit',
+    price: 'ETB 5,000',
     location: 'Dire Dawa',
-    postedTime: '5 hours ago',
-    image: 'https://images.unsplash.com/photo-1593032465175-481ac7f401a0?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    postedTime: '1 day ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=500&q=80',
+    brand: 'Classic Tailors',
+    specs: {
+      material: 'Wool',
+      size: '42',
+      color: 'Navy Blue',
+      condition: 'Like New'
+    }
   },
   {
     id: 3,
-    title: 'Designer Handbag',
-    price: 'ETB 1,800',
+    title: 'Women\'s Dress',
+    price: 'ETB 2,800',
     location: 'Hawassa',
-    postedTime: '1 day ago',
-    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    postedTime: '3 days ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=500&q=80',
+    brand: 'Modern Style',
+    specs: {
+      material: 'Silk',
+      size: 'Small',
+      color: 'Red',
+      condition: 'Used'
+    }
   },
   {
     id: 4,
-    title: 'Leather Shoes',
-    price: 'ETB 1,200',
-    location: 'Addis Ababa',
-    postedTime: '2 days ago',
-    image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    title: 'Leather Jacket',
+    price: 'ETB 4,500',
+    location: 'Bahir Dar',
+    postedTime: '5 days ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=500&q=80',
+    brand: 'Urban Wear',
+    specs: {
+      material: 'Genuine Leather',
+      size: 'Large',
+      color: 'Black',
+      condition: 'New'
+    }
   },
   {
     id: 5,
-    title: 'Kids\' Clothing Set',
-    price: 'ETB 800',
-    location: 'Bahir Dar',
-    postedTime: '3 days ago',
-    image: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    title: 'Traditional Shemma',
+    price: 'ETB 2,500',
+    location: 'Addis Ababa',
+    postedTime: '1 week ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=500&q=80',
+    brand: 'Ethio Fashion',
+    specs: {
+      material: 'Cotton',
+      size: 'One Size',
+      color: 'White',
+      condition: 'Like New'
+    }
   },
   {
     id: 6,
-    title: 'Women\'s Dress',
-    price: 'ETB 1,500',
-    location: 'Addis Ababa',
-    postedTime: '4 days ago',
-    image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    title: 'Designer Handbag',
+    price: 'ETB 6,000',
+    location: 'Dire Dawa',
+    postedTime: '2 weeks ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=500&q=80',
+    brand: 'Luxury Accessories',
+    specs: {
+      material: 'Leather',
+      size: 'Medium',
+      color: 'Brown',
+      condition: 'New'
+    }
   },
   {
     id: 7,
-    title: 'Traditional Shemma',
-    price: 'ETB 1,000',
-    location: 'Dire Dawa',
-    postedTime: '5 days ago',
-    image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    title: 'Men\'s Shoes',
+    price: 'ETB 3,200',
+    location: 'Hawassa',
+    postedTime: '3 weeks ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=500&q=80',
+    brand: 'Classic Footwear',
+    specs: {
+      material: 'Leather',
+      size: '42',
+      color: 'Black',
+      condition: 'Used'
+    }
   },
   {
     id: 8,
-    title: 'Accessories Set',
-    price: 'ETB 600',
-    location: 'Hawassa',
-    postedTime: '1 week ago',
-    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    title: 'Women\'s Jewelry Set',
+    price: 'ETB 4,800',
+    location: 'Bahir Dar',
+    postedTime: '1 month ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=500&q=80',
+    brand: 'Ethio Jewelry',
+    specs: {
+      material: 'Silver',
+      size: 'Standard',
+      color: 'Silver',
+      condition: 'New'
+    }
   }
 ])
 </script> 

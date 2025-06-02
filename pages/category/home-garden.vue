@@ -141,7 +141,7 @@
       <!-- Listings Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <div 
-          v-for="item in homeItems" 
+          v-for="item in homeGarden" 
           :key="item.id"
           class="bg-white dark:bg-[#4F7F8F] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200"
         >
@@ -206,78 +206,134 @@ definePageMeta({
 })
 
 // Update the mock data with real image URLs
-const homeItems = ref([
+const homeGarden = ref([
   {
     id: 1,
     title: 'Modern Sofa Set',
     price: 'ETB 25,000',
     location: 'Addis Ababa',
     postedTime: '2 hours ago',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=80',
+    brand: 'Home Comfort',
+    specs: {
+      material: 'Fabric',
+      color: 'Gray',
+      dimensions: '3-seater',
+      condition: 'New'
+    }
   },
   {
     id: 2,
-    title: 'Garden Plants Collection',
-    price: 'ETB 1,500',
+    title: 'Dining Table Set',
+    price: 'ETB 18,000',
     location: 'Dire Dawa',
-    postedTime: '5 hours ago',
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    postedTime: '1 day ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=500&q=80',
+    brand: 'Classic Furniture',
+    specs: {
+      material: 'Wood',
+      color: 'Brown',
+      seats: '6 chairs',
+      condition: 'Like New'
+    }
   },
   {
     id: 3,
-    title: 'Kitchen Appliances Set',
-    price: 'ETB 12,000',
+    title: 'Garden Plants Set',
+    price: 'ETB 3,500',
     location: 'Hawassa',
-    postedTime: '1 day ago',
-    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    postedTime: '3 days ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=500&q=80',
+    brand: 'Green Life',
+    specs: {
+      type: 'Indoor Plants',
+      quantity: '5 plants',
+      pot: 'Included',
+      condition: 'New'
+    }
   },
   {
     id: 4,
-    title: 'Decorative Wall Art',
-    price: 'ETB 2,500',
-    location: 'Addis Ababa',
-    postedTime: '2 days ago',
-    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    title: 'Kitchen Appliances Set',
+    price: 'ETB 15,000',
+    location: 'Bahir Dar',
+    postedTime: '5 days ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=500&q=80',
+    brand: 'Home Essentials',
+    specs: {
+      items: 'Blender, Toaster, Kettle',
+      color: 'Stainless Steel',
+      warranty: '1 Year',
+      condition: 'New'
+    }
   },
   {
     id: 5,
-    title: 'Outdoor Furniture Set',
-    price: 'ETB 15,000',
-    location: 'Bahir Dar',
-    postedTime: '3 days ago',
-    image: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    title: 'Bedroom Set',
+    price: 'ETB 35,000',
+    location: 'Addis Ababa',
+    postedTime: '1 week ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=500&q=80',
+    brand: 'Sleep Well',
+    specs: {
+      items: 'Bed, Wardrobe, Nightstand',
+      material: 'Wood',
+      size: 'Queen',
+      condition: 'Like New'
+    }
   },
   {
     id: 6,
-    title: 'Bedroom Furniture',
-    price: 'ETB 18,000',
-    location: 'Addis Ababa',
-    postedTime: '4 days ago',
-    image: 'https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    title: 'Garden Furniture Set',
+    price: 'ETB 12,000',
+    location: 'Dire Dawa',
+    postedTime: '2 weeks ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1583846781993-802b287a9b01?auto=format&fit=crop&w=500&q=80',
+    brand: 'Outdoor Living',
+    specs: {
+      items: 'Table, 4 Chairs',
+      material: 'Rattan',
+      color: 'Brown',
+      condition: 'New'
+    }
   },
   {
     id: 7,
-    title: 'Indoor Plants Bundle',
-    price: 'ETB 1,200',
-    location: 'Dire Dawa',
-    postedTime: '5 days ago',
-    image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    title: 'Decorative Items Set',
+    price: 'ETB 4,500',
+    location: 'Hawassa',
+    postedTime: '3 weeks ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=500&q=80',
+    brand: 'Home Decor',
+    specs: {
+      items: 'Vases, Wall Art, Candles',
+      style: 'Modern',
+      color: 'Mixed',
+      condition: 'Used'
+    }
   },
   {
     id: 8,
-    title: 'Home Decor Items',
-    price: 'ETB 3,500',
-    location: 'Hawassa',
-    postedTime: '1 week ago',
-    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    title: 'Bathroom Set',
+    price: 'ETB 8,000',
+    location: 'Bahir Dar',
+    postedTime: '1 month ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=500&q=80',
+    brand: 'Bath Essentials',
+    specs: {
+      items: 'Shower, Sink, Toilet',
+      material: 'Ceramic',
+      color: 'White',
+      condition: 'New'
+    }
   }
 ])
 </script> 

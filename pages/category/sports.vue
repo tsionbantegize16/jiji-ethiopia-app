@@ -210,74 +210,130 @@ const sportsItems = ref([
   {
     id: 1,
     title: 'Professional Football',
-    price: 'ETB 2,500',
+    price: 'ETB 1,200',
     location: 'Addis Ababa',
     postedTime: '2 hours ago',
-    image: 'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=80',
+    brand: 'Adidas',
+    specs: {
+      size: 'Size 5',
+      material: 'Synthetic',
+      type: 'Professional',
+      condition: 'New'
+    }
   },
   {
     id: 2,
-    title: 'Basketball Set',
-    price: 'ETB 3,000',
+    title: 'Running Shoes',
+    price: 'ETB 3,500',
     location: 'Dire Dawa',
-    postedTime: '5 hours ago',
-    image: 'https://images.unsplash.com/photo-1546519638-68e109acd27b?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    postedTime: '1 day ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80',
+    brand: 'Nike',
+    specs: {
+      size: '42',
+      type: 'Running',
+      color: 'Black/Red',
+      condition: 'Like New'
+    }
   },
   {
     id: 3,
-    title: 'Tennis Rackets',
-    price: 'ETB 4,500',
+    title: 'Basketball',
+    price: 'ETB 800',
     location: 'Hawassa',
-    postedTime: '1 day ago',
-    image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    postedTime: '3 days ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1546519638-68e109acd27b?auto=format&fit=crop&w=500&q=80',
+    brand: 'Spalding',
+    specs: {
+      size: 'Official Size',
+      material: 'Leather',
+      type: 'Indoor/Outdoor',
+      condition: 'Used'
+    }
   },
   {
     id: 4,
-    title: 'Running Shoes',
-    price: 'ETB 2,800',
-    location: 'Addis Ababa',
-    postedTime: '2 days ago',
-    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    title: 'Tennis Racket Set',
+    price: 'ETB 2,500',
+    location: 'Bahir Dar',
+    postedTime: '5 days ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=500&q=80',
+    brand: 'Wilson',
+    specs: {
+      type: 'Professional',
+      includes: '2 Rackets, Balls',
+      material: 'Graphite',
+      condition: 'New'
+    }
   },
   {
     id: 5,
     title: 'Gym Equipment Set',
     price: 'ETB 15,000',
-    location: 'Bahir Dar',
-    postedTime: '3 days ago',
-    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    location: 'Addis Ababa',
+    postedTime: '1 week ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=80',
+    brand: 'Life Fitness',
+    specs: {
+      items: 'Dumbbells, Bench, Mat',
+      weight: '20kg Set',
+      material: 'Steel',
+      condition: 'Like New'
+    }
   },
   {
     id: 6,
-    title: 'Swimming Gear',
+    title: 'Cycling Helmet',
     price: 'ETB 1,800',
-    location: 'Addis Ababa',
-    postedTime: '4 days ago',
-    image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    location: 'Dire Dawa',
+    postedTime: '2 weeks ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=500&q=80',
+    brand: 'Giro',
+    specs: {
+      size: 'Medium',
+      type: 'Road Cycling',
+      color: 'Black',
+      condition: 'New'
+    }
   },
   {
     id: 7,
-    title: 'Cycling Equipment',
-    price: 'ETB 8,500',
-    location: 'Dire Dawa',
-    postedTime: '5 days ago',
-    image: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    title: 'Yoga Mat Set',
+    price: 'ETB 1,500',
+    location: 'Hawassa',
+    postedTime: '3 weeks ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1592432678016-e910b452f9a2?auto=format&fit=crop&w=500&q=80',
+    brand: 'Liforme',
+    specs: {
+      thickness: '6mm',
+      material: 'Eco-friendly',
+      includes: 'Mat, Strap, Block',
+      condition: 'Used'
+    }
   },
   {
     id: 8,
-    title: 'Yoga Mat Set',
+    title: 'Swimming Goggles',
     price: 'ETB 1,200',
-    location: 'Hawassa',
-    postedTime: '1 week ago',
-    image: 'https://images.unsplash.com/photo-1592432678016-e910b452f9a2?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    location: 'Bahir Dar',
+    postedTime: '1 month ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=500&q=80',
+    brand: 'Speedo',
+    specs: {
+      type: 'Competition',
+      lens: 'Anti-fog',
+      color: 'Blue',
+      condition: 'New'
+    }
   }
 ])
 </script> 

@@ -211,74 +211,130 @@ const phones = ref([
   {
     id: 1,
     title: 'iPhone 13 Pro Max',
-    price: 'ETB 45,000',
+    price: 'ETB 85,000',
     location: 'Addis Ababa',
     postedTime: '2 hours ago',
+    isNew: true,
     image: 'https://images.unsplash.com/photo-1632661674596-79bd3e16c2bd?auto=format&fit=crop&w=500&q=80',
-    isNew: true
+    brand: 'Apple',
+    specs: {
+      storage: '256GB',
+      color: 'Sierra Blue',
+      condition: 'New',
+      warranty: '1 Year'
+    }
   },
   {
     id: 2,
     title: 'Samsung Galaxy S21',
-    price: 'ETB 35,000',
+    price: 'ETB 45,000',
     location: 'Dire Dawa',
-    postedTime: '5 hours ago',
-    image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80',
-    isNew: false
+    postedTime: '1 day ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=500&q=80',
+    brand: 'Samsung',
+    specs: {
+      storage: '128GB',
+      color: 'Phantom Gray',
+      condition: 'Like New',
+      warranty: '6 Months'
+    }
   },
   {
     id: 3,
     title: 'Google Pixel 6',
-    price: 'ETB 32,000',
+    price: 'ETB 35,000',
     location: 'Hawassa',
-    postedTime: '1 day ago',
+    postedTime: '3 days ago',
+    isNew: false,
     image: 'https://images.unsplash.com/photo-1632661674596-79bd3e16c2bd?auto=format&fit=crop&w=500&q=80',
-    isNew: false
+    brand: 'Google',
+    specs: {
+      storage: '128GB',
+      color: 'Stormy Black',
+      condition: 'Used',
+      warranty: 'None'
+    }
   },
   {
     id: 4,
     title: 'OnePlus 9 Pro',
-    price: 'ETB 40,000',
-    location: 'Addis Ababa',
-    postedTime: '3 days ago',
-    image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80',
-    isNew: false
+    price: 'ETB 55,000',
+    location: 'Bahir Dar',
+    postedTime: '5 days ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=500&q=80',
+    brand: 'OnePlus',
+    specs: {
+      storage: '256GB',
+      color: 'Morning Mist',
+      condition: 'New',
+      warranty: '1 Year'
+    }
   },
   {
     id: 5,
     title: 'iPhone 12',
-    price: 'ETB 38,000',
-    location: 'Bahir Dar',
-    postedTime: '2 weeks ago',
+    price: 'ETB 65,000',
+    location: 'Addis Ababa',
+    postedTime: '1 week ago',
+    isNew: false,
     image: 'https://images.unsplash.com/photo-1632661674596-79bd3e16c2bd?auto=format&fit=crop&w=500&q=80',
-    isNew: false
+    brand: 'Apple',
+    specs: {
+      storage: '128GB',
+      color: 'Black',
+      condition: 'Like New',
+      warranty: '3 Months'
+    }
   },
   {
     id: 6,
     title: 'Samsung Galaxy S22',
-    price: 'ETB 42,000',
-    location: 'Addis Ababa',
-    postedTime: '1 week ago',
-    image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80',
-    isNew: true
+    price: 'ETB 75,000',
+    location: 'Dire Dawa',
+    postedTime: '2 weeks ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=500&q=80',
+    brand: 'Samsung',
+    specs: {
+      storage: '256GB',
+      color: 'Burgundy',
+      condition: 'New',
+      warranty: '1 Year'
+    }
   },
   {
     id: 7,
     title: 'Xiaomi 12 Pro',
-    price: 'ETB 36,000',
-    location: 'Dire Dawa',
+    price: 'ETB 40,000',
+    location: 'Hawassa',
     postedTime: '3 weeks ago',
-    image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80',
-    isNew: false
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1632661674596-79bd3e16c2bd?auto=format&fit=crop&w=500&q=80',
+    brand: 'Xiaomi',
+    specs: {
+      storage: '128GB',
+      color: 'Cosmic Black',
+      condition: 'Used',
+      warranty: 'None'
+    }
   },
   {
     id: 8,
     title: 'iPhone 14 Pro',
-    price: 'ETB 48,000',
-    location: 'Hawassa',
+    price: 'ETB 95,000',
+    location: 'Bahir Dar',
     postedTime: '1 month ago',
+    isNew: true,
     image: 'https://images.unsplash.com/photo-1632661674596-79bd3e16c2bd?auto=format&fit=crop&w=500&q=80',
-    isNew: true
+    brand: 'Apple',
+    specs: {
+      storage: '256GB',
+      color: 'Deep Purple',
+      condition: 'New',
+      warranty: '1 Year'
+    }
   }
 ])
 </script>

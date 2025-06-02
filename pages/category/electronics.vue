@@ -102,6 +102,19 @@
           </div>
           <div>
             <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
+              Brand
+            </label>
+            <select class="w-full rounded-lg border-[#4F7F8F]/20 dark:border-[#C9F0EF]/20 bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF]">
+              <option>All Brands</option>
+              <option>Apple</option>
+              <option>Samsung</option>
+              <option>Sony</option>
+              <option>LG</option>
+              <option>Dell</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
               Category
             </label>
             <select class="w-full rounded-lg border-[#4F7F8F]/20 dark:border-[#C9F0EF]/20 bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF]">
@@ -122,18 +135,6 @@
               <option>New</option>
               <option>Used</option>
               <option>Refurbished</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-              Location
-            </label>
-            <select class="w-full rounded-lg border-[#4F7F8F]/20 dark:border-[#C9F0EF]/20 bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF]">
-              <option>All Locations</option>
-              <option>Addis Ababa</option>
-              <option>Dire Dawa</option>
-              <option>Hawassa</option>
-              <option>Bahir Dar</option>
             </select>
           </div>
         </div>
@@ -161,12 +162,23 @@
               </div>
             </div>
             <div class="p-4">
-              <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF] mb-2">
-                {{ item.title }}
-              </h3>
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-lg font-medium text-[#4F7F8F] dark:text-[#C9F0EF]">
+                  {{ item.title }}
+                </h3>
+                <span class="text-sm font-medium text-[#2EC4B6]">{{ item.brand }}</span>
+              </div>
               <p class="text-xl font-bold text-[#2EC4B6] mb-2">
                 {{ item.price }}
               </p>
+              <div class="mb-3">
+                <div class="text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
+                  <div v-for="(value, key) in item.specs" :key="key" class="flex items-center mb-1">
+                    <span class="font-medium capitalize">{{ key }}:</span>
+                    <span class="ml-2">{{ value }}</span>
+                  </div>
+                </div>
+              </div>
               <div class="flex items-center text-sm text-[#4F7F8F]/70 dark:text-[#C9F0EF]/70">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -215,7 +227,14 @@ const electronics = ref([
     location: 'Addis Ababa',
     postedTime: '2 hours ago',
     isNew: true,
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    brand: 'Apple',
+    specs: {
+      processor: 'M2 Pro',
+      ram: '16GB',
+      storage: '512GB SSD',
+      display: '14-inch Liquid Retina XDR'
+    }
   },
   {
     id: 2,
@@ -224,7 +243,14 @@ const electronics = ref([
     location: 'Dire Dawa',
     postedTime: '1 day ago',
     isNew: false,
-    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    brand: 'Samsung',
+    specs: {
+      size: '55-inch',
+      resolution: '4K UHD',
+      type: 'QLED',
+      features: 'Smart TV, HDR'
+    }
   },
   {
     id: 3,
@@ -233,7 +259,13 @@ const electronics = ref([
     location: 'Hawassa',
     postedTime: '3 days ago',
     isNew: false,
-    image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    brand: 'Sony',
+    specs: {
+      type: 'Wireless Noise Cancelling',
+      battery: '30 hours',
+      features: 'Bluetooth 5.0, NFC'
+    }
   },
   {
     id: 4,
@@ -242,43 +274,76 @@ const electronics = ref([
     location: 'Bahir Dar',
     postedTime: '5 days ago',
     isNew: true,
-    image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    brand: 'Sony',
+    specs: {
+      storage: '825GB SSD',
+      features: '4K Gaming, Ray Tracing',
+      controller: 'DualSense'
+    }
   },
   {
     id: 5,
     title: 'Dell XPS 13',
     price: 'ETB 85,000',
-    location: 'Bahir Dar',
-    postedTime: '3 days ago',
-    isNew: true,
-    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    location: 'Addis Ababa',
+    postedTime: '1 week ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    brand: 'Dell',
+    specs: {
+      processor: 'Intel i7',
+      ram: '16GB',
+      storage: '512GB SSD',
+      display: '13.4-inch 4K'
+    }
   },
   {
     id: 6,
-    title: 'LG 65" OLED TV',
-    price: 'ETB 95,000',
-    location: 'Addis Ababa',
-    postedTime: '4 days ago',
-    isNew: false,
-    image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    title: 'LG OLED TV',
+    price: 'ETB 75,000',
+    location: 'Dire Dawa',
+    postedTime: '2 weeks ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    brand: 'LG',
+    specs: {
+      size: '65-inch',
+      type: 'OLED',
+      features: '4K, HDR, AI ThinQ'
+    }
   },
   {
     id: 7,
-    title: 'Bose Soundbar 700',
-    price: 'ETB 35,000',
-    location: 'Dire Dawa',
-    postedTime: '5 days ago',
-    isNew: true,
-    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    title: 'iPad Pro 12.9',
+    price: 'ETB 55,000',
+    location: 'Hawassa',
+    postedTime: '3 weeks ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    brand: 'Apple',
+    specs: {
+      processor: 'M2',
+      storage: '256GB',
+      display: '12.9-inch Liquid Retina',
+      features: 'ProMotion, True Tone'
+    }
   },
   {
     id: 8,
-    title: 'Nintendo Switch OLED',
-    price: 'ETB 28,000',
-    location: 'Hawassa',
-    postedTime: '1 week ago',
-    isNew: false,
-    image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    title: 'Samsung Galaxy Tab S9',
+    price: 'ETB 35,000',
+    location: 'Bahir Dar',
+    postedTime: '1 month ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    brand: 'Samsung',
+    specs: {
+      processor: 'Snapdragon 8 Gen 2',
+      storage: '128GB',
+      display: '11-inch AMOLED',
+      features: 'S Pen, 5G'
+    }
   }
 ])
 </script> 
