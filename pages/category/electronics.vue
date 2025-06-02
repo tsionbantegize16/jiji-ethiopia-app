@@ -210,39 +210,39 @@ definePageMeta({
 const electronics = ref([
   {
     id: 1,
-    title: 'MacBook Pro M2 16"',
+    title: 'MacBook Pro 2023',
     price: 'ETB 120,000',
     location: 'Addis Ababa',
     postedTime: '2 hours ago',
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 2,
-    title: 'Samsung 55" 4K Smart TV',
+    title: 'Samsung 4K Smart TV',
     price: 'ETB 45,000',
     location: 'Dire Dawa',
-    postedTime: '5 hours ago',
-    image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    postedTime: '1 day ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 3,
     title: 'Sony WH-1000XM4',
     price: 'ETB 25,000',
     location: 'Hawassa',
-    postedTime: '1 day ago',
-    image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    postedTime: '3 days ago',
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 4,
     title: 'PlayStation 5',
     price: 'ETB 65,000',
-    location: 'Addis Ababa',
-    postedTime: '2 days ago',
-    image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    location: 'Bahir Dar',
+    postedTime: '5 days ago',
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 5,
@@ -250,8 +250,8 @@ const electronics = ref([
     price: 'ETB 85,000',
     location: 'Bahir Dar',
     postedTime: '3 days ago',
-    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 6,
@@ -259,8 +259,8 @@ const electronics = ref([
     price: 'ETB 95,000',
     location: 'Addis Ababa',
     postedTime: '4 days ago',
-    image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 7,
@@ -268,8 +268,8 @@ const electronics = ref([
     price: 'ETB 35,000',
     location: 'Dire Dawa',
     postedTime: '5 days ago',
-    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=500&q=60',
-    isNew: true
+    isNew: true,
+    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   },
   {
     id: 8,
@@ -277,8 +277,8 @@ const electronics = ref([
     price: 'ETB 28,000',
     location: 'Hawassa',
     postedTime: '1 week ago',
-    image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?auto=format&fit=crop&w=500&q=60',
-    isNew: false
+    isNew: false,
+    image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   }
 ])
 </script> 

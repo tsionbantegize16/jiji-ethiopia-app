@@ -301,30 +301,133 @@ const listing = ref({
   views: 245,
   favorites: 12,
   category: category.value,
-  mainImage: '/images/sample.jpg',
-  images: [
-    '/images/sample.jpg',
-    '/images/sample-2.jpg',
-    '/images/sample-3.jpg',
-    '/images/sample-4.jpg'
-  ],
-  description: `This is a sample listing description.
-It can span multiple lines.
-And include various details about the item.`,
-  specifications: {
-    'Condition': 'New',
-    'Brand': 'Sample Brand',
-    'Model': 'Sample Model',
-    'Year': '2024'
-  },
+  mainImage: getCategoryImage(category.value),
+  images: getCategoryImages(category.value),
+  description: getCategoryDescription(category.value),
+  specifications: getCategorySpecifications(category.value),
   seller: {
     name: 'John Doe',
-    avatar: '/images/avatar.jpg',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=60',
     joinDate: 'January 2023',
     rating: 4.8,
     listings: 15
   }
 })
+
+// Helper functions to get category-specific data
+function getCategoryImage(category: string) {
+  const images = {
+    'electronics': 'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=500&q=60',
+    'fashion': 'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=500&q=60',
+    'home-garden': 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
+    'sports': 'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=60',
+    'vehicles': 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=60'
+  }
+  return images[category as keyof typeof images] || '/images/sample.jpg'
+}
+
+function getCategoryImages(category: string) {
+  const images = {
+    'electronics': [
+      'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=500&q=60'
+    ],
+    'fashion': [
+      'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=500&q=60'
+    ],
+    'home-garden': [
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=500&q=60'
+    ],
+    'sports': [
+      'https://images.unsplash.com/photo-1508098682722-e99c643e5eae?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1546519638-68e109acd27b?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60'
+    ],
+    'vehicles': [
+      'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=500&q=60'
+    ]
+  }
+  return images[category as keyof typeof images] || ['/images/sample.jpg']
+}
+
+function getCategoryDescription(category: string) {
+  const descriptions = {
+    'electronics': `High-quality electronics item in excellent condition.
+Perfect for everyday use.
+Comes with original accessories and warranty.
+Tested and verified by our team.`,
+    'fashion': `Stylish and trendy fashion item.
+Made with premium materials.
+Perfect fit and comfortable to wear.
+Suitable for various occasions.`,
+    'home-garden': `Beautiful home and garden item.
+Enhances your living space.
+Durable and long-lasting.
+Easy to maintain and clean.`,
+    'sports': `Professional-grade sports equipment.
+Perfect for training and competitions.
+Well-maintained and in great condition.
+Suitable for all skill levels.`,
+    'vehicles': `Well-maintained vehicle in excellent condition.
+Regular service history available.
+Fuel efficient and reliable.
+Perfect for family use.`
+  }
+  return descriptions[category as keyof typeof descriptions] || 'Sample description'
+}
+
+function getCategorySpecifications(category: string) {
+  const specs = {
+    'electronics': {
+      'Condition': 'New',
+      'Brand': 'Samsung',
+      'Model': 'Galaxy S21',
+      'Warranty': '1 Year'
+    },
+    'fashion': {
+      'Size': 'Medium',
+      'Color': 'Blue',
+      'Material': 'Cotton',
+      'Brand': 'Nike'
+    },
+    'home-garden': {
+      'Material': 'Wood',
+      'Dimensions': '200x80x75 cm',
+      'Color': 'Natural',
+      'Style': 'Modern'
+    },
+    'sports': {
+      'Type': 'Professional',
+      'Size': 'Standard',
+      'Material': 'Synthetic',
+      'Brand': 'Adidas'
+    },
+    'vehicles': {
+      'Year': '2023',
+      'Mileage': '15,000 km',
+      'Transmission': 'Automatic',
+      'Fuel Type': 'Petrol'
+    }
+  }
+  return specs[category as keyof typeof specs] || {
+    'Condition': 'New',
+    'Brand': 'Sample Brand',
+    'Model': 'Sample Model',
+    'Year': '2024'
+  }
+}
 
 // Set initial image
 onMounted(() => {
@@ -338,7 +441,7 @@ const relatedListings = ref([
     title: 'Related Item 1',
     price: 'ETB 38,000',
     location: 'Addis Ababa',
-    image: '/images/sample-2.jpg',
+    image: getCategoryImage(category.value),
     isNew: false
   },
   {
@@ -346,7 +449,7 @@ const relatedListings = ref([
     title: 'Related Item 2',
     price: 'ETB 35,000',
     location: 'Dire Dawa',
-    image: '/images/sample-3.jpg',
+    image: getCategoryImage(category.value),
     isNew: true
   },
   {
@@ -354,7 +457,7 @@ const relatedListings = ref([
     title: 'Related Item 3',
     price: 'ETB 32,000',
     location: 'Hawassa',
-    image: '/images/sample-4.jpg',
+    image: getCategoryImage(category.value),
     isNew: false
   },
   {
@@ -362,7 +465,7 @@ const relatedListings = ref([
     title: 'Related Item 4',
     price: 'ETB 28,000',
     location: 'Addis Ababa',
-    image: '/images/sample-5.jpg',
+    image: getCategoryImage(category.value),
     isNew: false
   }
 ])
