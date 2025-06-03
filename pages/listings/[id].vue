@@ -328,35 +328,67 @@ onMounted(() => {
 // Mock related listings - Replace with actual API call
 const relatedListings = ref([
   {
-    id: 2,
-    title: 'iPhone 13 Pro - 128GB',
-    price: 'ETB 38,000',
+    id: 1,
+    title: 'iPhone 14 Pro Max',
+    price: 'ETB 95,000',
     location: 'Addis Ababa',
-    image: '/images/iphone-2.jpg',
-    isNew: false
-  },
-  {
-    id: 3,
-    title: 'iPhone 12 Pro Max - 256GB',
-    price: 'ETB 35,000',
-    location: 'Dire Dawa',
-    image: '/images/iphone-3.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1NSLsfMUy20YOmf9xjKp-X_QDsAyipoUEvWoLNRW2IBk8Q7n_kcYEmvdFe_eHdYt3xxA&usqp=CAU',
     isNew: true
   },
   {
-    id: 4,
-    title: 'iPhone 13 - 128GB',
-    price: 'ETB 32,000',
+    id: 2,
+    title: 'Samsung Galaxy S23 Ultra',
+    price: 'ETB 85,000',
+    location: 'Dire Dawa',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKdfvLQefFOCJeITYOMWfCo91U4MoBv4xCAw&s',
+    isNew: true
+  },
+  {
+    id: 3,
+    title: 'Google Pixel 7 Pro',
+    price: 'ETB 65,000',
     location: 'Hawassa',
-    image: '/images/iphone-4.jpg',
+    image: 'https://www.hemfrance.com/35461-thickbox_default/google-pixel-7-pro-5g-dual-sim-67-128-gb-12-gb-ram-black.jpg',
     isNew: false
   },
   {
-    id: 5,
-    title: 'iPhone 12 - 64GB',
-    price: 'ETB 28,000',
+    id: 4,
+    title: 'OnePlus 11',
+    price: 'ETB 55,000',
     location: 'Addis Ababa',
-    image: '/images/iphone-5.jpg',
+    image: 'https://www.oneplus.com/content/dam/oasis/page/2023/global/home/salami-share.jpg',
+    isNew: true
+  },
+  {
+    id: 5,
+    title: 'Xiaomi 13 Pro',
+    price: 'ETB 45,000',
+    location: 'Bahir Dar',
+    image: 'https://i02.appmifile.com/974_operator_sg/15/02/2023/25063acab659d7f38d5f2959ad808d04.png',
+    isNew: false
+  },
+  {
+    id: 6,
+    title: 'iPhone 13 Pro',
+    price: 'ETB 75,000',
+    location: 'Addis Ababa',
+    image: 'https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone13-family-lineup-220308_big.jpg.small.jpg',
+    isNew: false
+  },
+  {
+    id: 7,
+    title: 'Samsung Galaxy S22 Ultra',
+    price: 'ETB 65,000',
+    location: 'Dire Dawa',
+    image: 'https://petapixel.com/assets/uploads/2022/02/Samsung-Galaxy-S22-Ultra-Camera-Review-Incrementally-Better.jpg',
+    isNew: false
+  },
+  {
+    id: 8,
+    title: 'Google Pixel 6a',
+    price: 'ETB 35,000',
+    location: 'Hawassa',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpuhGxzSAoGhGa_mRX8NInuqpFumGtNZLeAoauaXJicBSHGov2yLnVLQx9_470LU_UOIk&usqp=CAU',
     isNew: false
   }
 ])

@@ -212,7 +212,7 @@ const phones = ref([
     location: 'Addis Ababa',
     postedTime: '2 hours ago',
     isNew: true,
-    image: 'https://images.unsplash.com/photo-1678652197831-2d1801b5d5f5?auto=format&fit=crop&w=500&q=80',
+    image: 'https://storage.yaknoviy.ua/images/productstores/4393/page/lazy/JMXX9TgceROxv08RpkVJTi6aTQl4z6naWUvn5O2J.webp',
     brand: 'Apple',
     specs: {
       storage: '256GB',
@@ -231,7 +231,7 @@ const phones = ref([
     location: 'Dire Dawa',
     postedTime: '1 day ago',
     isNew: true,
-    image: 'https://images.unsplash.com/photo-1678775702101-9ed9a8aef6a0?auto=format&fit=crop&w=500&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKdfvLQefFOCJeITYOMWfCo91U4MoBv4xCAw&s',
     brand: 'Samsung',
     specs: {
       storage: '512GB',
@@ -250,7 +250,7 @@ const phones = ref([
     location: 'Hawassa',
     postedTime: '3 days ago',
     isNew: false,
-    image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&w=500&q=80',
+    image: 'https://www.hemfrance.com/35461-thickbox_default/google-pixel-7-pro-5g-dual-sim-67-128-gb-12-gb-ram-black.jpg',
     brand: 'Google',
     specs: {
       storage: '256GB',
@@ -269,7 +269,7 @@ const phones = ref([
     location: 'Addis Ababa',
     postedTime: '5 days ago',
     isNew: true,
-    image: 'https://images.unsplash.com/photo-1678775702101-9ed9a8aef6a0?auto=format&fit=crop&w=500&q=80',
+    image: 'https://www.oneplus.com/content/dam/oasis/page/2023/global/home/salami-share.jpg',
     brand: 'OnePlus',
     specs: {
       storage: '256GB',
@@ -288,7 +288,7 @@ const phones = ref([
     location: 'Bahir Dar',
     postedTime: '1 week ago',
     isNew: false,
-    image: 'https://images.unsplash.com/photo-1678775702101-9ed9a8aef6a0?auto=format&fit=crop&w=500&q=80',
+    image: 'https://i02.appmifile.com/974_operator_sg/15/02/2023/25063acab659d7f38d5f2959ad808d04.png',
     brand: 'Xiaomi',
     specs: {
       storage: '256GB',
@@ -307,7 +307,7 @@ const phones = ref([
     location: 'Addis Ababa',
     postedTime: '2 weeks ago',
     isNew: false,
-    image: 'https://images.unsplash.com/photo-1632661674596-79bd3e16c2bd?auto=format&fit=crop&w=500&q=80',
+    image: 'https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone13-family-lineup-220308_big.jpg.small.jpg',
     brand: 'Apple',
     specs: {
       storage: '128GB',
@@ -326,7 +326,7 @@ const phones = ref([
     location: 'Dire Dawa',
     postedTime: '3 weeks ago',
     isNew: false,
-    image: 'https://images.unsplash.com/photo-1678775702101-9ed9a8aef6a0?auto=format&fit=crop&w=500&q=80',
+    image: 'https://petapixel.com/assets/uploads/2022/02/Samsung-Galaxy-S22-Ultra-Camera-Review-Incrementally-Better.jpg',
     brand: 'Samsung',
     specs: {
       storage: '256GB',
@@ -345,7 +345,7 @@ const phones = ref([
     location: 'Hawassa',
     postedTime: '1 month ago',
     isNew: false,
-    image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&w=500&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpuhGxzSAoGhGa_mRX8NInuqpFumGtNZLeAoauaXJicBSHGov2yLnVLQx9_470LU_UOIk&usqp=CAU',
     brand: 'Google',
     specs: {
       storage: '128GB',

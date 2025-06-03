@@ -168,7 +168,7 @@ const devices = ref([
     location: 'Addis Ababa',
     postedTime: '2 hours ago',
     isNew: true,
-    image: 'https://images.unsplash.com/photo-1678652197831-2d1801b5d5f5?auto=format&fit=crop&w=500&q=80',
+    image: 'https://compasia.com.ph/cdn/shop/files/iphone-14-pro-max-228886.png?v=1737456748',
     brand: 'Apple',
     specs: {
       storage: '256GB',
@@ -188,7 +188,7 @@ const devices = ref([
     location: 'Dire Dawa',
     postedTime: '1 day ago',
     isNew: true,
-    image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=500&q=80',
+    image: 'https://sm.pcmag.com/pcmag_au/review/a/apple-ipad/apple-ipad-pro-2024_ba6h.jpg',
     brand: 'Apple',
     specs: {
       storage: '256GB',
@@ -208,7 +208,7 @@ const devices = ref([
     location: 'Hawassa',
     postedTime: '3 days ago',
     isNew: false,
-    image: 'https://images.unsplash.com/photo-1678775702101-9ed9a8aef6a0?auto=format&fit=crop&w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/41abBK5Hp7L._AC_UF894,1000_QL80_DpWeblab_.jpg',
     brand: 'Samsung',
     specs: {
       storage: '512GB',
@@ -228,7 +228,7 @@ const devices = ref([
     location: 'Addis Ababa',
     postedTime: '5 days ago',
     isNew: true,
-    image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=500&q=80',
+    image: 'https://file01.es.c01.co/v2/upload/5BD5D55C87E4DA45/202409/5288929075097645360.jpg',
     brand: 'Samsung',
     specs: {
       storage: '256GB',
