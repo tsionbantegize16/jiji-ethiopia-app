@@ -24,38 +24,59 @@
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">
       <!-- Filters -->
-      <div class="flex flex-wrap gap-4 mb-8">
-        <select 
-          v-model="selectedCategory"
-          class="px-4 py-2 rounded-lg bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] border border-gray-200 dark:border-[#C9F0EF]/20"
-        >
-          <option value="">All Categories</option>
-          <option value="vehicles">Vehicles</option>
-          <option value="electronics">Electronics</option>
-          <option value="fashion">Fashion</option>
-          <option value="home">Home & Garden</option>
-        </select>
+      <div class="flex flex-wrap gap-4 mb-8 relative z-50">
+        <div class="relative z-50">
+          <select 
+            v-model="selectedCategory"
+            class="px-4 py-2 rounded-lg bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] border border-gray-200 dark:border-[#C9F0EF]/20 appearance-none pr-8 min-w-[200px] z-50 hover:border-[#2EC4B6] focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20"
+          >
+            <option value="" class="py-2">All Categories</option>
+            <option value="vehicles" class="py-2">Vehicles</option>
+            <option value="electronics" class="py-2">Electronics</option>
+            <option value="fashion" class="py-2">Fashion</option>
+            <option value="home" class="py-2">Home & Garden</option>
+          </select>
+          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <svg class="w-4 h-4 text-[#4F7F8F] dark:text-[#C9F0EF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
 
-        <select 
-          v-model="sortBy"
-          class="px-4 py-2 rounded-lg bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] border border-gray-200 dark:border-[#C9F0EF]/20"
-        >
-          <option value="relevance">Relevance</option>
-          <option value="price_asc">Price: Low to High</option>
-          <option value="price_desc">Price: High to Low</option>
-          <option value="newest">Newest First</option>
-        </select>
+        <div class="relative z-50">
+          <select 
+            v-model="sortBy"
+            class="px-4 py-2 rounded-lg bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] border border-gray-200 dark:border-[#C9F0EF]/20 appearance-none pr-8 min-w-[200px] z-50 hover:border-[#2EC4B6] focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20"
+          >
+            <option value="relevance" class="py-2">Relevance</option>
+            <option value="price_asc" class="py-2">Price: Low to High</option>
+            <option value="price_desc" class="py-2">Price: High to Low</option>
+            <option value="newest" class="py-2">Newest First</option>
+          </select>
+          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <svg class="w-4 h-4 text-[#4F7F8F] dark:text-[#C9F0EF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
 
-        <select 
-          v-model="condition"
-          class="px-4 py-2 rounded-lg bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] border border-gray-200 dark:border-[#C9F0EF]/20"
-        >
-          <option value="">All Conditions</option>
-          <option value="new">New</option>
-          <option value="like_new">Like New</option>
-          <option value="good">Good</option>
-          <option value="fair">Fair</option>
-        </select>
+        <div class="relative z-50">
+          <select 
+            v-model="condition"
+            class="px-4 py-2 rounded-lg bg-white dark:bg-[#4F7F8F] text-[#4F7F8F] dark:text-[#C9F0EF] border border-gray-200 dark:border-[#C9F0EF]/20 appearance-none pr-8 min-w-[200px] z-50 hover:border-[#2EC4B6] focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20"
+          >
+            <option value="" class="py-2">All Conditions</option>
+            <option value="new" class="py-2">New</option>
+            <option value="like_new" class="py-2">Like New</option>
+            <option value="good" class="py-2">Good</option>
+            <option value="fair" class="py-2">Fair</option>
+          </select>
+          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <svg class="w-4 h-4 text-[#4F7F8F] dark:text-[#C9F0EF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
       </div>
 
       <!-- Results Grid -->
@@ -152,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 interface SearchResult {
   id: number
@@ -417,5 +438,83 @@ watch([selectedCategory, sortBy, condition], () => {
 
 .shadow-hover:hover {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Dropdown styles */
+select {
+  cursor: pointer;
+  background-color: white;
+  z-index: 50;
+  position: relative;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+select:hover {
+  border-color: #2EC4B6;
+}
+
+select:focus {
+  border-color: #2EC4B6;
+  box-shadow: 0 0 0 2px rgba(46, 196, 182, 0.2);
+  z-index: 100;
+}
+
+select option {
+  background-color: white;
+  color: #4F7F8F;
+  padding: 12px;
+  font-size: 14px;
+  z-index: 100;
+  cursor: pointer;
+}
+
+select option:hover {
+  background-color: #f3f4f6;
+}
+
+.dark select {
+  background-color: #4F7F8F;
+}
+
+.dark select option {
+  background-color: #4F7F8F;
+  color: #C9F0EF;
+}
+
+.dark select option:hover {
+  background-color: #3d6472;
+}
+
+/* Ensure dropdowns are above other content */
+.relative {
+  z-index: 50;
+}
+
+/* Ensure dropdowns appear above all other content */
+select:focus {
+  z-index: 100;
+}
+
+select:focus option {
+  z-index: 100;
+}
+
+/* Custom dropdown arrow */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+}
+
+/* Add hover effect to options */
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+  background: linear-gradient(0deg, #2EC4B6 0%, #2EC4B6 100%);
+  background-color: #2EC4B6 !important;
+  color: white;
 }
 </style>
