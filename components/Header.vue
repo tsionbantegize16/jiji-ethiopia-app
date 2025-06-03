@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between h-16">
         <!-- Logo -->
         <NuxtLink 
-          :to="{ path: '/' }" 
+          to="/" 
           class="flex items-center space-x-2 group"
           @mouseenter="isLogoHovered = true"
           @mouseleave="isLogoHovered = false"
@@ -49,7 +49,7 @@
                   <NuxtLink
                     v-for="category in popularCategories"
                     :key="category.path"
-                    :to="{ path: category.path }"
+                    :to="category.path"
                     class="flex items-center px-3 py-2 text-sm text-[#4F7F8F] dark:text-[#C9F0EF] hover:bg-[#C9F0EF]/30 dark:hover:bg-[#2EC4B6]/20 rounded-md transition-colors duration-200"
                     @click="isCategoriesOpen = false"
                   >
@@ -102,7 +102,7 @@
           </button>
 
           <NuxtLink
-            :to="{ path: '/create-listing' }"
+            to="/create-listing"
             class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#2EC4B6] to-[#5EBFCA] hover:from-[#4F7F8F] hover:to-[#2EC4B6] rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2EC4B6] focus:ring-offset-2 dark:focus:ring-offset-[#4F7F8F]"
           >
             <span class="relative z-10">Sell</span>
@@ -110,7 +110,7 @@
           </NuxtLink>
 
           <NuxtLink 
-            :to="{ path: '/messages' }"
+            to="/messages"
             class="p-2 text-[#4F7F8F] dark:text-[#C9F0EF] hover:text-[#2EC4B6] transition-colors duration-200 relative group"
           >
             <div class="absolute inset-0 bg-[#C9F0EF]/30 dark:bg-[#2EC4B6]/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-200"></div>
@@ -125,7 +125,7 @@
           </NuxtLink>
 
           <NuxtLink
-            :to="{ path: '/favorites' }"
+            to="/favorites"
             class="p-2 text-[#4F7F8F] dark:text-[#C9F0EF] hover:text-[#2EC4B6] transition-colors duration-200 relative group"
           >
             <div class="absolute inset-0 bg-[#C9F0EF]/30 dark:bg-[#2EC4B6]/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-200"></div>
@@ -140,7 +140,7 @@
           </NuxtLink>
 
           <NuxtLink
-            :to="{ path: '/profile' }"
+            to="/profile"
             class="p-2 text-[#4F7F8F] dark:text-[#C9F0EF] hover:text-[#2EC4B6] transition-colors duration-200 relative group"
           >
             <div class="absolute inset-0 bg-[#C9F0EF]/30 dark:bg-[#2EC4B6]/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-200"></div>
